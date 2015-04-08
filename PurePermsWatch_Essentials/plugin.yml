@@ -1,0 +1,7 @@
+name: PurePermsWatch
+version: 1.0.0
+api: 1.11.0
+main: PurePermsWatch\PurePermsWatch
+author: [Flavius12,Praxthisnovcht]
+depend: [EssentialsPEChat, PurePerms]
+description: Extension for EssentialsPEChat !

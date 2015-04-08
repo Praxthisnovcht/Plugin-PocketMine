@@ -1,0 +1,7 @@
+name: FactionsProWatch
+version: 1.0.0
+api: 1.11.0
+main: FactionsProWatch\FactionsProWatch
+author: [Flavius12,Praxthisnovcht]
+depend: [EssentialsPEChat, FactionsPro]
+description: Extension for EssentialsPEChat !

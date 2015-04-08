@@ -1,0 +1,7 @@
+name: MassiveEconomyWatch
+version: 1.0.0
+api: 1.11.0
+main: MassiveEconomyWatch\MassiveEconomyWatch
+author: [Flavius12,Praxthisnovcht]
+depend: [EssentialsPEChat, MassiveEconomyAPI]
+description: Extension for EssentialsPEChat !

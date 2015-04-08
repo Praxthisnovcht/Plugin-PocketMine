@@ -1,0 +1,7 @@
+name: KillChat
+version: 2.0.0
+api: 1.0.0
+main: Praxthisnovcht\KillChat\KillChat
+author: [Flavius12,Praxthisnovcht]
+depend: [EssentialsChat]
+description: Adds Counter Kill for EssentialsChat

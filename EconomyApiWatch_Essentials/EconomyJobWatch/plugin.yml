@@ -1,0 +1,7 @@
+name: EconomyJobWatch
+version: 1.0.0
+api: 1.11.0
+main: EconomyJobWatch\EconomyJobWatch
+author: [Flavius12,Praxthisnovcht]
+depend: [EssentialsPEChat, EconomyJob]
+description: Extension for EssentialsPEChat !
