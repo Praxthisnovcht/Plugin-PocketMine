@@ -1,0 +1,10 @@
+name: SimpleRules
+version: 1.0.0
+api: 1.0.0
+main: Praxthisnovcht\SimpleRules\SimpleRules
+author: [Praxthisnovcht]
+description: SimpleRules
+commands:
+ rules:
+  description: "sets important rules"
+  permission: simplerules.plugin.rules

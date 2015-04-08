@@ -1,0 +1,15 @@
+---
+#Choose the world you want to reset here:
+MapReset: World1
+
+MapPlaying: World_1
+
+#When do you want the map to reset? (In secounds)
+TimeReset: 120
+
+#When the world is reseting, Where should players get teleported to?
+WoldTpPlayer: world
+
+#This setting should be left along. Please ignore it.
+startreset: "no"
+...

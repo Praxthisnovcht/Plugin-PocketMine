@@ -1,0 +1,11 @@
+name: HeroesRPG
+version: "0.5.0"
+api: 1.11.0
+main: Praxthisnovcht\HeroesRPG\HeroesRPG
+author: [Praxthisnovcht]
+description: Level,Xp for MCPE
+
+commands:
+ xp:
+  description: "sets xp"
+  permission: heroesrpg.commands.xp

@@ -1,0 +1,6 @@
+name: EasySurvival
+version: 1.0.0
+api: 1.0.0
+main: Praxthisnovcht\EasySurvival\Main
+author: [Praxthisnovcht]
+description: EasySurvival

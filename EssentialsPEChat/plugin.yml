@@ -1,0 +1,64 @@
+name: EssentialsPEChat
+version: "1.4.0"
+api: 1.11.0
+main: Praxthisnovcht\EssentialsPEChat\EssentialsPEChat
+author: [Praxthisnovcht, EvolSoft]
+description: Adds options on the discution salon
+
+commands:
+ setprefix:
+  description: "sets prefix for player"
+  permission: essentialspechat.commands.setprefix
+ defprefix:
+  description: "sets default prefix for new players"
+  permission: essentialspechat.commands.defprefix
+ delprefix:
+  description: "set player's prefix to default"
+  permission: essentialspechat.commands.delprefix
+ 
+permissions:
+            essentialspechat.commands.disablechat:
+                default: op
+                description: "Disable Chat"
+            essentialspechat.commands.enablechat:
+                default: op
+                description: "Enable Chat"
+            essentialspechat.afk:
+                default: true
+                description: "Toggle the AFK status"
+            essentialspechat.afkoff:
+                default: true
+                description: "Toggle the AFK off status"
+            essentialspechat.commands.mute:
+                default: op
+                description: "Mute Player Target"
+            essentialspechat.commands.unmute:
+                default: op
+                description: "Unmute Player Target"
+            essentialspechat.npd:
+                default: true
+                description: "Toggle the NPD status"
+            essentialspechat.npdoff:
+                default: true
+                description: "Toggle the NPD off status"
+            essentialspechat.commands.sefprefix:
+                default: op
+                description: "Select Prefix Target player"
+            essentialspechat.commands.delprefix:
+                default: op
+                description: "Delete Prefix"
+            essentialspechat.commands.sefprefix:
+                default: op
+                description: "Select Default Prefix"
+            essentialspechat.commands.leave:
+                default: true
+                description: "Leave The Chat "
+            essentialspechat.commands.join:
+                default: op
+                description: "Join The Chat"
+            essentialspechat.commands.nick:
+                default: op
+                description: "Select Nick"
+            essentialspechat.commands.delnick:
+                default: op
+                description: "Delete Nick"

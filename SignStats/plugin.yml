@@ -1,0 +1,10 @@
+name: SignStats
+version: 1.0.0
+api: 1.11.0
+main: Praxthisnovcht\SignStats\SignStats
+author: [Praxthisnovcht]
+description: Check Stats Sign
+
+permissions:
+ signstats.commands.sign:
+  description: Create SignStats

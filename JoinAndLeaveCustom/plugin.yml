@@ -1,0 +1,9 @@
+﻿name: JoinAndLeaveCustom
+author: Praxthisnovcht
+api: [1.6.0]
+version: 1.0.0
+load: POSTWORLD
+description: Custom message Join & Leave Game.
+main: Praxthisnovcht\JoinAndLeaveCustom\Main
+website: scmcpe.livehost.fr/
+
