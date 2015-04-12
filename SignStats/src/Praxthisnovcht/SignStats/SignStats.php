@@ -52,10 +52,10 @@ class SignStats extends PluginBase implements Listener{
 			          $Deaths = $player->getDeaths();   
 			    #      $Ratio = $player->getKills();     					  
 				$event->setLine(0,"[SignStats]");
-				$event->setLine(1,"[Kills :"$Kills"]");
-				$event->setLine(2,"[Deaths :"$Deaths"]");
+				$event->setLine(1,"[Kills :".$Kills."]");
+				$event->setLine(2,"[Deaths :".$Deaths."]");
 				$event->setLine(3,"[Ratio shortly");				
-				# $event->setLine(3,"[Ratio :"$Ratio"]");
+				# $event->setLine(3,"[Ratio :".$Ratio."]");
 				
 				$event->getPlayer()->sendMessage("[SignStats] SignStats created successfully !");
 			}else{
