@@ -39,6 +39,20 @@ class ccCommand {
 	 * @return boolean
 	 */
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+
+		if ((strtolower ( $command->getName () ) == "CustomChat")) {
+			$sender->sendMessage (TextFormat::RED . "-==[ CustomChat Info ]==-");
+			$sender->sendMessage (TextFormat::RED . "Usage: /mute <player>");
+			$sender->sendMessage (TextFormat::RED . "Usage: /unmute <player>");
+			$sender->sendMessage (TextFormat::RED . "Usage: /delprefix <player>");
+			$sender->sendMessage (TextFormat::RED . "Usage: /enablechat");	
+			$sender->sendMessage (TextFormat::RED . "Usage: /disablechat");	
+			$sender->sendMessage (TextFormat::RED . "Usage: /defprefix <Prefix>");
+			$sender->sendMessage (TextFormat::RED . "Usage: /setprefix <Prefix> <player>");
+			$sender->sendMessage (TextFormat::RED . "Usage: /setnick <Nick> <player>");
+			$sender->sendMessage (TextFormat::RED . "Usage: /delnick <player>");
+			return;
+		}
 		// disable chat for all players
 		if ((strtolower ( $command->getName () ) == "disablechat")) {
 			$this->pgin->getConfig ()->set ( "disablechat", true ); // config.yml

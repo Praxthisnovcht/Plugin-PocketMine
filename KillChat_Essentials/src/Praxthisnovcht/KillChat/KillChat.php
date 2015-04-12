@@ -18,7 +18,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\Listener;
 
-use Praxthisnovcht\EssentialsChat\EssentialsChat;
+use Praxthisnovcht\EssentialsPEChat\EssentialsPEChat;
 
 class KillChat extends PluginBase implements Listener{
 	
@@ -40,14 +40,14 @@ class KillChat extends PluginBase implements Listener{
 	public function onEnable(){
 		@mkdir($this->getDataFolder());
 		@mkdir($this->getDataFolder() . "data/");
-		$this->getLogger()->info(TextFormat::GREEN . "KillChat extension for EssentialsChat enabled");
-		EssentialsChat::getInstance()->registerExtension($this); //Register this plugin as EssentialsChat extension
+		$this->getLogger()->info(TextFormat::GREEN . "KillChat extension for EssentialsPEChat enabled");
+		EssentialsPEChat::getInstance()->registerExtension($this); //Register this plugin as EssentialsPEChat extension
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 	
 	public function onRegisterPrefix(){
-		EssentialsChat::getInstance()->replacePrefix("{Kills}", $this->getKills(EssentialsChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
-		EssentialsChat::getInstance()->replacePrefix("{Deaths}", $this->getDeaths(EssentialsChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
+		EssentialsPEChat::getInstance()->replacePrefix("{Kills}", $this->getKills(EssentialsPEChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
+		EssentialsPEChat::getInstance()->replacePrefix("{Deaths}", $this->getDeaths(EssentialsPEChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
 	}
 	
 	public function onPlayerDeath(PlayerDeathEvent $event){

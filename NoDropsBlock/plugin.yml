@@ -1,0 +1,6 @@
+name: NoDropsBlock
+version: 1.7.0
+api: 1.6.0
+main: Praxthisnovcht\NoDropsBlock\NoDropsBlock
+author: [Praxthisnovcht,Dax,Supra]
+description: NoDropsBlock

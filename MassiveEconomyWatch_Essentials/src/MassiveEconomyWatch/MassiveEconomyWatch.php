@@ -16,6 +16,6 @@ class MassiveEconomyWatch extends PluginBase{
 		EssentialsPEChat::getInstance()->registerExtension($this);
 	}
 	public function onRegisterPrefix(){
-		EssentialsChat::getInstance()->replacePrefix("{MONEY}", MassiveEconomyAPI::getInstance()->getMoney(EssentialsChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
+		EssentialsPEChat::getInstance()->replacePrefix("{MONEY}", MassiveEconomyAPI::getInstance()->getMoney(EssentialsPEChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
 	}
 }

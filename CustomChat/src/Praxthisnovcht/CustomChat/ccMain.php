@@ -59,7 +59,7 @@ class ccMain extends PluginBase implements CommandExecutor {
 	 * @see \pocketmine\plugin\PluginBase::onLoad()
 	 */
 	public function onLoad() {
-	    $this->getLogger()->info(TextFormat::YELLOW . "Loading CustomChat v_1.3.9 by Praxthisnovcht");
+	    $this->getLogger()->info(TextFormat::YELLOW . "Loading CustomChat v_1.4.0 by Praxthisnovcht");
 		$this->swCommand = new ccCommand ( $this );
 	}
 	

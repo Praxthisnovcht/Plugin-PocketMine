@@ -18,6 +18,6 @@ class PurePermsWatch extends PluginBase{
 	public function onRegisterPrefix(){
 				$isMultiWorldEnabled = $this->pureperms->getConfig()->get("enable-multiworld-formats");
 				$levelName = $isMultiWorldEnabled ?  $player->getLevel()->getName() : null;
-		EssentialsChat::getInstance()->replacePrefix("{PurePerms}", PurePerms::getInstance()->getUser($player)->getGroup($levelName)(EssentialsChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
+		EssentialsPEChat::getInstance()->replacePrefix("{PurePerms}", PurePerms::getInstance()->getUser($player)->getGroup($levelName)(EssentialsPEChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
 	}
 }

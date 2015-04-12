@@ -1,0 +1,10 @@
+name: BlockLocations
+version: 1.0.1
+api: 1.7.1
+main: Praxthisnovcht\BlockLocations\BlockLocations
+author: [Praxthisnovcht]
+description: Select a location
+commands:
+ blockl:
+  description: "Select a location"
+  permission: blocklocations.plugin.blockl

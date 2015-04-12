@@ -25,9 +25,9 @@ class FactionsProWatch extends PluginBase{
 	}
 	public function onRegisterPrefix(){
 		$getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName())); 
-		EssentialsChat::getInstance()->replacePrefix("{FACTION}", FactionsPro::getInstance()->getUserFaction(EssentialsChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
+		EssentialsPEChat::getInstance()->replacePrefix("{FACTION}", FactionsPro::getInstance()->getUserFaction(EssentialsPEChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));
 		}else{
 			$getNoFac = $this->getConfig ()->get ( "if-player-has-no-faction");
-		EssentialsChat::getInstance()->replacePrefix("{FACTION}", FactionsProWatch::getInstance()->getNoFac(EssentialsChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));		
+		EssentialsPEChat::getInstance()->replacePrefix("{FACTION}", FactionsProWatch::getInstance()->getNoFac(EssentialsPEChat::getInstance()->getCurrentEvent()->getPlayer()->getName()));		
 	}
 }
