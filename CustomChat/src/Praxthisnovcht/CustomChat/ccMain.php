@@ -59,7 +59,7 @@ class ccMain extends PluginBase implements CommandExecutor {
 	 * @see \pocketmine\plugin\PluginBase::onLoad()
 	 */
 	public function onLoad() {
-	    $this->getLogger()->info(TextFormat::YELLOW . "Loading CustomChat v_1.4.0 by Praxthisnovcht");
+	    $this->getLogger()->info(TextFormat::YELLOW . "Loading CustomChat v_1.4.5 by Praxthisnovcht");
 		$this->swCommand = new ccCommand ( $this );
 	}
 	
@@ -134,16 +134,19 @@ class ccMain extends PluginBase implements CommandExecutor {
 			$this->getConfig ()->set ( "disablechat", false );
 		}	
 		if (! $this->getConfig ()->get ( "default-player-prefix" )) {
-			$this->getConfig ()->set ( "default-player-prefix", "Default" );
+			$this->getConfig ()->set ( "default-player-prefix", "PREFIX" );
 		}
-		if (! $this->getConfig ()->get ( "CustomChat options" )) {
+		if (! $this->getConfig ()->get ( "default-player-tags" )) {
+			$this->getConfig ()->set ( "default-player-tags", "TAGS" );
+		}
+		if (! $this->getConfig ()->get ( "CustomChat options" )) { // Totally Useless ^^
 			$this->getConfig ()->set ( "CustomChat options", "{Kills} | {Deaths} | [{Money}$]" );
 		}
 		if (! $this->getConfig ()->get ( "CustomJoin" )) {
-			$this->getConfig ()->set ( "CustomJoin", "@Player joined the server ! Iksaku is Awesome" );
+			$this->getConfig ()->set ( "CustomJoin", "@Player joined the server (Iksaku is Awesome) !") ;
 		}
 		if (! $this->getConfig ()->get ( "CustomLeave" )) {
-			$this->getConfig ()->set ( "CustomLeave", "@Player leave the server ! Iksaku is Awesome" );
+			$this->getConfig ()->set ( "CustomLeave", "@Player leave the server  (ksaku is Awesome) !");
 		}
 		if (! $this->getConfig ()->get ( "if-player-has-no-faction" )) {
 			$this->getConfig ()->set ( "if-player-has-no-faction", "NoFaction" );
@@ -180,6 +183,16 @@ class ccMain extends PluginBase implements CommandExecutor {
 		//default to regular name
 		$p->setNameTag($p->getName());
 		return;
+		
+		
+		$tags=null;
+		$playerPrefix = $this->getConfig ()->get ( $p->getName ().".tags" );
+		if ($playerTags != null) {
+			$tags = $playerTags;
+		} else {
+			//use default prefix
+			$tags = $this->getConfig ()->get ( "default-player-tags");
+		}
 	}
 	
 	/**

@@ -4,6 +4,7 @@ namespace Praxthisnovcht\CustomChat;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\level\Position;
 use pocketmine\event\block\SignChangeEvent;
@@ -21,21 +22,21 @@ use Praxthisnovcht\KillChat\KillChat;
  *
  */
 class ccListener implements Listener {
-	public $pgin;
+	public $plugin;
 	private $pureperms;
 	public function __construct(ccMain $pg) {
-		$this->pgin = $pg;
+		$this->plugin = $pg;
 		// use KillChat\KillChat
-		$this->killchat = $this->pgin->getServer()->getPluginManager()->getPlugin("KillChat");
+		$this->killchat = $this->plugin->getServer()->getPluginManager()->getPlugin("KillChat");
 		// Use PurePerms by 64FF00	
-		$this->pureperms = $this->pgin->getServer()->getPluginManager()->getPlugin("PurePerms");
+		$this->pureperms = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
 		// Use MassiveEconomy
-		$this->massive = $this->pgin->getServer()->getPluginManager()->getPlugin("MassiveEconomy");
+		$this->massive = $this->plugin->getServer()->getPluginManager()->getPlugin("MassiveEconomy");
 		
-		$this->factionspro = $this->pgin->getServer()->getPluginManager()->getPlugin("FactionsPro");
+		$this->factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
 	}
 	public function onPlayerChat(PlayerChatEvent $event) {
-		$allowChat = $this->pgin->getConfig ()->get ( "disablechat" );
+		$allowChat = $this->plugin->getConfig ()->get ( "disablechat" );
 		// $this->log ( "allowChat ".$allowChat);
 		if ($allowChat) {
 			$event->setCancelled ( true );
@@ -53,20 +54,51 @@ class ccListener implements Listener {
 				return;
 			}
 			$format = $this->getFormattedMessage ( $player, $event->getMessage () );
-			$config_node = $this->pgin->getConfig ()->get ( "enable-formatter" );
+			$config_node = $this->plugin->getConfig ()->get ( "enable-formatter" );
 			if (isset ( $config_node ) and $config_node === true) {
 				$event->setFormat ( $format );
 			}
 			return;
 		}
 	}
-	public function onPlayerJoin(PlayerJoinEvent $event) {
-		$player = $event->getPlayer ();
-		$this->pgin->formatterPlayerDisplayName ( $player );
-	}
+    public function onPlayerQuit(PlayerQuitEvent $event){ // Thank to Guillaume351 Help Me !
+         $message = $this->plugin->getConfig()->get("CustomLeave");
+             $player = $event->getPlayer();
+                 $event->setQuitMessage(null);
+                     if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
+                         $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName()));
+                             $message = str_replace ( "@Faction", $getUserFaction, $message );
+                                 }else{
+                                     $nofac = $this->plugin->getConfig ()->get ( "if-player-has-no-faction");
+                                         $message = str_replace ( "@Faction", $nofac, $message );
+                                             }
+                                                 $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
+                                                     foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
+                                                         $player->sendPopup($message);
+    } 
+}
+    public function onPlayerJoin(PlayerJoinEvent $event) { // Thank to Guillaume351 Help Me !
+         $player = $event->getPlayer ();
+             $this->plugin->formatterPlayerDisplayName ( $player );
+                 $message = $this->plugin->getConfig()->get("CustomJoin");
+                     $player = $event->getPlayer();
+					     $event->setJoinMessage(null);
+                             if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
+                                 $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName()));
+                                     $message = str_replace ( "@Faction", $getUserFaction, $message );
+                                         }else{
+                                             $nofac = $this->plugin->getConfig ()->get ( "if-player-has-no-faction");
+                                                 $message = str_replace ( "@Faction", $nofac, $message );
+                                                     }
+                                                         $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
+                                                             $this->plugin->formatterPlayerDisplayName ( $player );
+                                                                 foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
+                                                                     $player->sendPopup($message);
+    }  
+}
 // 	public function formatterPlayerDisplayName(Player $p) {
-// 		$playerPrefix = $this->pgin->getConfig ()->get ( $player->getName () );
-// 		$defaultPrefix = $this->pgin->getConfig ()->get ( "default-player-prefix" );
+// 		$playerPrefix = $this->plugin->getConfig ()->get ( $player->getName () );
+// 		$defaultPrefix = $this->plugin->getConfig ()->get ( "default-player-prefix" );
 		
 // 		if ($playerPrefix != null) {
 // 			$p->setDisplayName ( $playerPrefix . ":" . $name );
@@ -80,7 +112,7 @@ class ccListener implements Listener {
 // 	}
 	
 	public function getFormattedMessage(Player $player, $message) {
-		$format = $this->pgin->getConfig ()->get ( "chat-format" );
+		$format = $this->plugin->getConfig ()->get ( "chat-format" );
 		// $format = "<{PREFIX} {USER_NAME}> {MESSAGE}";	
 
 
@@ -113,9 +145,22 @@ class ccListener implements Listener {
 			$getUserFaction = $this->factionspro->getPlayerFaction($player->getName()); 
 			$format = str_replace ( "{FACTION}", $getUserFaction, $format );
 		}else{
-			$nofac = $this->pgin->getConfig ()->get ( "if-player-has-no-faction");
+			$nofac = $this->plugin->getConfig ()->get ( "if-player-has-no-faction");
 			$format = str_replace ( "{FACTION}", $nofac, $format );
 		}
+		$tags = null;
+		$playerTags = $this->plugin->getConfig ()->get ( $player->getName ().".tags" );
+		if ($playerTags != null) {
+			$tags = $playerTags;
+		} else {
+			//use default tags
+			$tags = $this->plugin->getConfig ()->get ( "default-player-tags");
+		}				
+		if ($tags == null) {
+			 $tags = "";
+		         }
+		             $format = str_replace ( "{TAGS}", $tags, $format );
+		                 return $format;
 
 
 
@@ -124,7 +169,7 @@ class ccListener implements Listener {
 		
 		$format = str_replace ( "{WORLD_NAME}", $player->getLevel ()->getName (), $format );
 		
-		$nick = $this->pgin->getConfig ()->get ( $player->getName () > ".nick");
+		$nick = $this->plugin->getConfig ()->get ( $player->getName () > ".nick");
 		if ($nick!=null) {
 			$format = str_replace ( "{DISPLAY_NAME}", $nick, $format );
 		} else {
@@ -136,12 +181,12 @@ class ccListener implements Listener {
 		$level = $player->getLevel ()->getName ();
 		
 		$prefix = null;
-		$playerPrefix = $this->pgin->getConfig ()->get ( $player->getName ().".prefix" );
+		$playerPrefix = $this->plugin->getConfig ()->get ( $player->getName ().".prefix" );
 		if ($playerPrefix != null) {
 			$prefix = $playerPrefix;
 		} else {
 			//use default prefix
-			$prefix = $this->pgin->getConfig ()->get ( "default-player-prefix");
+			$prefix = $this->plugin->getConfig ()->get ( "default-player-prefix");
 		}				
 		if ($prefix == null) {
 			$prefix = "";
@@ -150,6 +195,6 @@ class ccListener implements Listener {
 		return $format;
 	}
 	private function log($msg) {
-		$this->pgin->getLogger ()->info ( $msg );
+		$this->plugin->getLogger ()->info ( $msg );
 	}
 }

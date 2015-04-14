@@ -1,5 +1,5 @@
 name: CustomChat
-version: 1.4.0
+version: 1.4.5
 api: 1.7.1
 main: Praxthisnovcht\CustomChat\ccMain
 author: [Praxthisnovcht]
@@ -35,3 +35,12 @@ commands:
  customchat:
   description: "CustomChat Features"
   permission: customchat.plugin.info
+ tags:
+  description: "sets tags for Player"
+  permission: customchat.plugin.tags
+ deftags:
+  description: "sets default tags for new players"
+  permission: customchat.plugin.defprefix
+ deltags:
+  description: "set player's tags to default"
+  permission: customchat.plugin.tags

@@ -18,14 +18,14 @@ use pocketmine\event\player\PlayerQuitEvent;
  *
  */
 class ccCommand {
-	private $pgin;
+	private $plugin;
 	/**
 	 *
 	 * @param
 	 *        	$pg
 	 */
 	public function __construct(ccMain $pg) {
-		$this->pgin = $pg;
+		$this->plugin = $pg;
 	}
 
 	
@@ -55,16 +55,16 @@ class ccCommand {
 		}
 		// disable chat for all players
 		if ((strtolower ( $command->getName () ) == "disablechat")) {
-			$this->pgin->getConfig ()->set ( "disablechat", true ); // config.yml
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->set ( "disablechat", true ); // config.yml
+			$this->plugin->getConfig ()->save ();
 			$sender->sendMessage (TextFormat::RED . "disable chat for all players" );
 			$this->log ( "disable chat for all players" );
 			return;
 		}
 		// enable chat for all players
 		if ((strtolower ( $command->getName () ) == "enablechat")) {
-			$this->pgin->getConfig ()->set ( "disablechat", false ); // config.yml
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->set ( "disablechat", false ); // config.yml
+			$this->plugin->getConfig ()->save ();
 			$sender->sendMessage (TextFormat::GREEN . "enable chat for all players" );
 			$this->log ( "enable chat for all players" );
 			return;
@@ -79,8 +79,8 @@ class ccCommand {
 				return true;
 			}
 			$prefix = $args [1];
-			$this->pgin->getConfig ()->set ( "default-player-prefix", $prefix );
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->set ( "default-player-prefix", $prefix );
+			$this->plugin->getConfig ()->save ();
 			$sender->sendMessage (TextFormat::RED . " all players default prefix set to " . $args [1] );
 			return;
 		}
@@ -94,11 +94,11 @@ class ccCommand {
 				return true;
 			}
 			$prefix = $args [1];
-			$this->pgin->getConfig ()->set ( $p->getName ().".prefix", $prefix );
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->set ( $p->getName ().".prefix", $prefix );
+			$this->plugin->getConfig ()->save ();
 			
 			// $p->setDisplayName($prefix.":".$name);
-			$this->pgin->formatterPlayerDisplayName ( $p );
+			$this->plugin->formatterPlayerDisplayName ( $p );
 			$sender->sendMessage (TextFormat::GREEN . $p->getName () . " prefix set to " . $args [1] );
 			return;
 		}
@@ -111,8 +111,8 @@ class ccCommand {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
 				return true;
 			}
-			$this->pgin->getConfig ()->remove ( $p->getName () . ".prefix" );
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->remove ( $p->getName () . ".prefix" );
+			$this->plugin->getConfig ()->save ();
 			$sender->sendMessage (TextFormat::RED . $p->getName () . " prefix set to default" );
 			return;
 		}
@@ -126,10 +126,10 @@ class ccCommand {
 				return true;
 			}
 			$nick = $args [1];
-			$this->pgin->getConfig ()->set ( $p->getName () . ".nick", $nick );
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->set ( $p->getName () . ".nick", $nick );
+			$this->plugin->getConfig ()->save ();
 			
-			$this->pgin->formatterPlayerDisplayName ( $p );
+			$this->plugin->formatterPlayerDisplayName ( $p );
 			$sender->sendMessage (TextFormat::GREEN . $p->getName () . " nick name set to " . $args [1] );
 			return;
 		}
@@ -142,11 +142,11 @@ class ccCommand {
 				return true; 
 			}
 			$nick = $args [1];
-			$this->pgin->getConfig ()->remove ( $p->getName () . ".nick" );
-			$this->pgin->getConfig ()->save ();
+			$this->plugin->getConfig ()->remove ( $p->getName () . ".nick" );
+			$this->plugin->getConfig ()->save ();
 			// save yml
 			
-			$this->pgin->formatterPlayerDisplayName ( $p );
+			$this->plugin->formatterPlayerDisplayName ( $p );
 			$sender->sendMessage (TextFormat::GREEN . $p->getName () . " nick removed " );
 			return;
 		}
@@ -161,7 +161,7 @@ class ccCommand {
 				return true;
 			}
 			$perm = "chatmute";
-			$p->addAttachment ( $this->pgin, $perm, true );
+			$p->addAttachment ( $this->plugin, $perm, true );
 			$sender->sendMessage (TextFormat::GREEN . $p->getName () . " chat muted" );
 			// $this->log ( "isPermissionSet " . $p->isPermissionSet ( $perm ) );
 			return;
@@ -189,6 +189,54 @@ class ccCommand {
 			return; // next try again
 			
 		}
+// TAGS
+		// sets default tags for new players
+		if ((strtolower ( $command->getName () ) == "deftags") && isset ( $args [0] )) {
+			$playerName = $args [0];
+			$p = $sender->getServer ()->getPlayerExact ( $playerName );
+			if ($p == null) {
+				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
+				return true;
+			}
+			$tags = $args [1];
+			$this->plugin->getConfig ()->set ( "default-player-tags", $tags );
+			$this->plugin->getConfig ()->save ();
+			$sender->sendMessage (TextFormat::RED . " all players default tags set to " . $args [1] );
+			return;
+		}
+		
+		// sets tags for player
+		if ((strtolower ( $command->getName () ) == "tags") && isset ( $args [0] ) && isset ( $args [1] )) {
+			$playerName = $args [0];
+			$p = $sender->getServer ()->getPlayerExact ( $playerName );
+			if ($p == null) {
+				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
+				return true;
+			}
+			$tags = $args [1];
+			$this->plugin->getConfig ()->set ( $p->getName ().".tags", $tags );
+			$this->plugin->getConfig ()->save ();
+			
+			// $p->setDisplayName($tags.":".$name);
+			$this->plugin->formatterPlayerDisplayName ( $p );
+			$sender->sendMessage (TextFormat::GREEN . $p->getName () . " tags set to " . $args [1] );
+			return;
+		}
+		
+		// set player's tags to default.
+		if ((strtolower ( $command->getName () ) == "deltags") && isset ( $args [0] )) {
+			$playerName = $args [0];
+			$p = $sender->getServer ()->getPlayerExact ( $playerName );
+			if ($p == null) {
+				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
+				return true;
+			}
+			$this->plugin->getConfig ()->remove ( $p->getName () . ".tags" );
+			$this->plugin->getConfig ()->save ();
+			$sender->sendMessage (TextFormat::RED . $p->getName () . " tags set to default" );
+			return;
+		}
+		
 	}
 	             // TODO NEXT VERSION
 	
@@ -207,6 +255,6 @@ class ccCommand {
 	 * @param unknown $msg        	
 	 */
 	private function log($msg) {
-		$this->pgin->getLogger ()->info ( $msg );
+		$this->plugin->getLogger ()->info ( $msg );
 	}
 }
