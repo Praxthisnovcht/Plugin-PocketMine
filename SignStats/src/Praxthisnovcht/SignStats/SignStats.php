@@ -10,11 +10,13 @@ use pocketmine\utils\TextFormat;
 use pocketmine\utils\Config;
 use pocketmine\tile\Sign;
 use pocketmine\event\block\SignChangeEvent;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 
-use Praxthisnovcht\SignStats\Time;
+// use Praxthisnovcht\SignStats\Time;
 
 
 
@@ -50,12 +52,11 @@ class SignStats extends PluginBase implements Listener{
 			if($player->hasPermission("signstats.commands.sign")){
 			          $Kills = $player->getKills();
 			          $Deaths = $player->getDeaths();   
-			    #      $Ratio = $player->getKills();     					  
+			          $Ratio = $player->getKills();     					  
 				$event->setLine(0,"[SignStats]");
 				$event->setLine(1,"[Kills :".$Kills."]");
 				$event->setLine(2,"[Deaths :".$Deaths."]");
-				$event->setLine(3,"[Ratio shortly");				
-				# $event->setLine(3,"[Ratio :".$Ratio."]");
+				$event->setLine(3,"[Ratio :".$getKdRatio."]");		
 				
 				$event->getPlayer()->sendMessage("[SignStats] SignStats created successfully !");
 			}else{
@@ -69,6 +70,12 @@ class SignStats extends PluginBase implements Listener{
 			}
 		}
 	}
+	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+		switch($command->getName()){
+			case "stats":
+				return true;
+	        }
+        }
 	
 	public function onPlayerDeath(PlayerDeathEvent $event){
 		//Getting Victim
