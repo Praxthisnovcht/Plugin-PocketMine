@@ -38,6 +38,11 @@ class EventListener implements Listener{
 		$this->plugin->replaceTag("{PREFIX}", $this->plugin->getConfig()->get("prefix")); //Prefix Tag
 	        $this->plugin->replaceTag("{SUFFIX}", $this->plugin->getConfig()->get("suffix")); //Suffix Tag
 		$this->plugin->replaceTag("{MESSAGE}", $event->getMessage()); //Message Tag
+		//Custom tags
+		$tags = new Config($this->plugin->getDataFolder() . "tags.yml", Config::YAML);
+		foreach($tags->getAll() as $tag => $value){
+			$this->plugin->replaceTag("{" . strtoupper($tag)."}", $value);
+		}
 		$event->setFormat($this->getFormattedMessage($this->plugin->getConfig()->get("chat-format")));
 	// ===========
 	//	Player Mute
