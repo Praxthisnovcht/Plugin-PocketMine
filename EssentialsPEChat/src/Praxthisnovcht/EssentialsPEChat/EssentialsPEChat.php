@@ -40,6 +40,7 @@ class EssentialsPEChat extends PluginBase{
 	public function onEnable(){
 	    @mkdir($this->getDataFolder());
 	    $this->saveDefaultConfig();
+	    $this->saveResource("tags.yml");
 		$this->getLogger()->info(TextFormat::GREEN . "EssentialsPEChat 1.4.0 Loaded!");
 		$this->registerExtension($this);
 		$this->config = new Config ( $this->getDataFolder () . "prefix.yml", Config::YAML );
