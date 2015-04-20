@@ -23,6 +23,8 @@ class EssentialsPEChat extends PluginBase{
 	public $tags = array();
 	
 	public $event;
+
+        public $essentialsCommand;
 	
 	private static $object = null;
 	
@@ -35,6 +37,7 @@ class EssentialsPEChat extends PluginBase{
 		if(!self::$object instanceof EssentialsPEChat){
 			self::$object = $this;
 		}
+             $this->$essentialsCommand = new EssentialsPEChatCommand ( $this );
 	}
 
 	public function onEnable(){
