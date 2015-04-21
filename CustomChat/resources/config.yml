@@ -8,5 +8,5 @@ CustomChat options: '{Kills} | {Deaths} | [{Money}$]'
 CustomJoin: '@Player joined the server ! Iksaku is Awesome'
 CustomLeave: '@Player leave the server ! Iksaku is Awesome'
 if-player-has-no-faction: NoFaction
-
+per-world-chat: false
 ...
