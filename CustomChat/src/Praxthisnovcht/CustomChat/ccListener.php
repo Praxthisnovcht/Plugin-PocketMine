@@ -37,6 +37,7 @@ class ccListener implements Listener {
 	}
 	public function onPlayerChat(PlayerChatEvent $event) {
 		$allowChat = $this->plugin->getConfig ()->get ( "disablechat" );
+			$worldchat = $this->plugin->getConfig ()->get ( "per-world-chat" );
 		// $this->log ( "allowChat ".$allowChat);
 		if ($allowChat) {
 			$event->setCancelled ( true );
@@ -56,7 +57,17 @@ class ccListener implements Listener {
 			$format = $this->getFormattedMessage ( $player, $event->getMessage () );
 			$config_node = $this->plugin->getConfig ()->get ( "enable-formatter" );
 			if (isset ( $config_node ) and $config_node === true) {
+				if($worlchat == true){
+				foreach($event->getPlayer()->getServer()->getOnlinePlayers() as $playerS){
+					if ($player->getLevel()->getName() == $playerS->getLevel()->getName()){
+						$playerS->sendMessage($format);
+					}
+					
+				}
+				$event->setFormat("");
+				}else{
 				$event->setFormat ( $format );
+				}
 			}
 			return;
 		}
