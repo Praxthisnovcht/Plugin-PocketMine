@@ -109,7 +109,7 @@ class ccMain extends PluginBase implements CommandExecutor {
 			             $prefix = $playerPrefix;
 		                     } else {
 			                     //use default prefix
-                                         $this->cfg = $this->getConfig()->getAll();
+                                         $this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
 			                                  $prefix = $this->cfg ()->get ( "default-player-prefix");
 		                                         }
 	

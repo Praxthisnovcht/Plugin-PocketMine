@@ -36,6 +36,7 @@ class ccListener implements Listener {
 		$this->factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
 	}
 	public function onPlayerChat(PlayerChatEvent $event) {
+        $this->cfg = new Config($this->cfg . "config.yml", Config::YAML);		
 		$allowChat = $this->plugin->cfg ()->get ( "disablechat" );
 			$worldchat = $this->plugin->cfg ()->get ( "per-world-chat" );
 		// $this->log ( "allowChat ".$allowChat);
@@ -55,6 +56,7 @@ class ccListener implements Listener {
 				return;
 			}
 			$format = $this->getFormattedMessage ( $player, $event->getMessage () );
+			$this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
 			$config_node = $this->plugin->cfg ()->get ( "enable-formatter" );
 			if (isset ( $config_node ) and $config_node === true) {
 				if($worlchat == true){
@@ -73,6 +75,7 @@ class ccListener implements Listener {
 		}
 	}
     public function onPlayerQuit(PlayerQuitEvent $event){ // Thank to Guillaume351 Help Me !
+	$this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
       $this->cfg = $this->getConfig()->getAll();
          $message = $this->plugin->cfg()->get("CustomLeave");
              $player = $event->getPlayer();
@@ -81,7 +84,8 @@ class ccListener implements Listener {
                          $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName()));
                              $message = str_replace ( "@Faction", $getUserFaction, $message );
                                  }else{
-                                     $nofac = $this->plugin->getConfig ()->get ( "if-player-has-no-faction");
+									$this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
+                                     $nofac = $this->plugin->cfg ()->get ( "if-player-has-no-faction");
                                          $message = str_replace ( "@Faction", $nofac, $message );
                                              }
                                                  $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
@@ -90,16 +94,16 @@ class ccListener implements Listener {
     } 
 }
     public function onPlayerJoin(PlayerJoinEvent $event) { // Thank to Guillaume351 Help Me !
-         $player = $event->getPlayer ();
-             $this->plugin->formatterPlayerDisplayName ( $player );
-                 $message = $this->plugin->cfg()->get("CustomJoin");
+         $player = $event->getPlayer ();		
+             $this->plugin->formatterPlayerDisplayName ( $player 
+                 $message = $this->plugin->cfg->get("CustomJoin");
                      $player = $event->getPlayer();
 					     $event->setJoinMessage(null);
                              if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
                                  $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName()));
                                      $message = str_replace ( "@Faction", $getUserFaction, $message );
                                          }else{
-                                             $nofac = $this->plugin->getConfig ()->get ( "if-player-has-no-faction");
+                                             $nofac = $this->plugin->cfg ()->get ( "if-player-has-no-faction");
                                                  $message = str_replace ( "@Faction", $nofac, $message );
                                                      }
                                                          $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
@@ -111,7 +115,7 @@ class ccListener implements Listener {
     	                                                                         $users = new Config($this->data . "users/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	                                                                             $users->set(".prefix", PREFIX);
     	                                                                                 $users->set(".tags", TAGS);
-    	                                                                                     $data->save();
+    	                                                                                     $users->save();
     	                                                                                         $this->plugin->getLogger()->notice("New player : ".$player->getName());
     }  
 }
@@ -131,6 +135,7 @@ class ccListener implements Listener {
 // 	}
 	
 	public function getFormattedMessage(Player $player, $message) {
+        $this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
 		$format = $this->plugin->cfg ()->get ( "chat-format" );
 		// $format = "<{PREFIX} {USER_NAME}> {MESSAGE}";	
 
@@ -168,12 +173,14 @@ class ccListener implements Listener {
 			$format = str_replace ( "{FACTION}", $nofac, $format );
 		}
 		$tags = null;
+        $this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
 		$playerTags = $this->plugin->users ()->get ( $player->getName ().".tags" );
 		if ($playerTags != null) {
 			$tags = $playerTags;
 		} else {
 			//use default tags
-			$tags = $this->plugin->users ()->get ( "default-player-tags");
+        $this->cfg = new Config($this->cfg . "config.yml", Config::YAML);
+			$tags = $this->plugin->cfg ()->get ( "default-player-tags");
 		}				
 		if ($tags == null) {
 			 $tags = "";
