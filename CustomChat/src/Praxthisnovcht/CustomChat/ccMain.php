@@ -102,8 +102,9 @@ class ccMain extends PluginBase implements CommandExecutor {
 	
 	public function formatterPlayerDisplayName(Player $p) {
 		$prefix=null;
-             $this->users = $this->getDataFolder();
-		         $playerPrefix = $this->users->get ( $p->getName ().".prefix" ); 106
+             $this->users =   new Config($this->data . "users/" . strtolower($p->getName() . ".yml"), Config::YAML);
+          
+		         $playerPrefix = $this->users->get ( $p->getName ().".prefix" );
 		             if ($playerPrefix != null) {
 			             $prefix = $playerPrefix;
 		                     } else {
