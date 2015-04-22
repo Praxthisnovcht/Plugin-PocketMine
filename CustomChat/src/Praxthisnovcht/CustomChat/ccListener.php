@@ -36,8 +36,8 @@ class ccListener implements Listener {
 		$this->factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
 	}
 	public function onPlayerChat(PlayerChatEvent $event) {
-		$allowChat = $this->plugin->getConfig ()->get ( "disablechat" );
-			$worldchat = $this->plugin->getConfig ()->get ( "per-world-chat" );
+		$allowChat = $this->plugin->cfg ()->get ( "disablechat" );
+			$worldchat = $this->plugin->cfg ()->get ( "per-world-chat" );
 		// $this->log ( "allowChat ".$allowChat);
 		if ($allowChat) {
 			$event->setCancelled ( true );
@@ -55,7 +55,7 @@ class ccListener implements Listener {
 				return;
 			}
 			$format = $this->getFormattedMessage ( $player, $event->getMessage () );
-			$config_node = $this->plugin->getConfig ()->get ( "enable-formatter" );
+			$config_node = $this->plugin->cfg ()->get ( "enable-formatter" );
 			if (isset ( $config_node ) and $config_node === true) {
 				if($worlchat == true){
 				foreach($event->getPlayer()->getServer()->getOnlinePlayers() as $playerS){
@@ -73,7 +73,7 @@ class ccListener implements Listener {
 		}
 	}
     public function onPlayerQuit(PlayerQuitEvent $event){ // Thank to Guillaume351 Help Me !
-         $message = $this->plugin->getConfig()->get("CustomLeave");
+         $message = $this->plugin->cfg()->get("CustomLeave");
              $player = $event->getPlayer();
                  $event->setQuitMessage(null);
                      if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
@@ -91,7 +91,7 @@ class ccListener implements Listener {
     public function onPlayerJoin(PlayerJoinEvent $event) { // Thank to Guillaume351 Help Me !
          $player = $event->getPlayer ();
              $this->plugin->formatterPlayerDisplayName ( $player );
-                 $message = $this->plugin->getConfig()->get("CustomJoin");
+                 $message = $this->plugin->cfg()->get("CustomJoin");
                      $player = $event->getPlayer();
 					     $event->setJoinMessage(null);
                              if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
@@ -105,6 +105,13 @@ class ccListener implements Listener {
                                                              $this->plugin->formatterPlayerDisplayName ( $player );
                                                                  foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
                                                                      $player->sendPopup($message);
+													    	             $player = $event->getPlayer();
+    	                                                                     $this->users = $this->getDataFolder();
+    	                                                                         $users = new Config($this->data . "users/" . strtolower($player->getName() . ".yml"), Config::YAML);
+    	                                                                             $users->set(".prefix", PREFIX);
+    	                                                                                 $users->set(".tags", TAGS);
+    	                                                                                     $data->save();
+    	                                                                                         $this->plugin->getLogger()->notice("New player : ".$player->getName());
     }  
 }
 // 	public function formatterPlayerDisplayName(Player $p) {
@@ -123,7 +130,7 @@ class ccListener implements Listener {
 // 	}
 	
 	public function getFormattedMessage(Player $player, $message) {
-		$format = $this->plugin->getConfig ()->get ( "chat-format" );
+		$format = $this->plugin->cfg ()->get ( "chat-format" );
 		// $format = "<{PREFIX} {USER_NAME}> {MESSAGE}";	
 
 
@@ -131,7 +138,7 @@ class ccListener implements Listener {
 			$format = str_replace("{PurePerms}", "NoGroup", $format);
 		}
 		if($this->pureperms) {
-				$isMultiWorldEnabled = $this->pureperms->getConfig()->get("enable-multiworld-formats");
+				$isMultiWorldEnabled = $this->pureperms->cfg()->get("enable-multiworld-formats");
 				$levelName = $isMultiWorldEnabled ?  $player->getLevel()->getName() : null;
                  $format = str_replace("{PurePerms}", $this->pureperms->getUser($player)->getGroup($levelName)->getName(), $format);
             } else {
@@ -156,16 +163,16 @@ class ccListener implements Listener {
 			$getUserFaction = $this->factionspro->getPlayerFaction($player->getName()); 
 			$format = str_replace ( "{FACTION}", $getUserFaction, $format );
 		}else{
-			$nofac = $this->plugin->getConfig ()->get ( "if-player-has-no-faction");
+			$nofac = $this->plugin->cfg ()->get ( "if-player-has-no-faction");
 			$format = str_replace ( "{FACTION}", $nofac, $format );
 		}
 		$tags = null;
-		$playerTags = $this->plugin->getConfig ()->get ( $player->getName ().".tags" );
+		$playerTags = $this->plugin->users ()->get ( $player->getName ().".tags" );
 		if ($playerTags != null) {
 			$tags = $playerTags;
 		} else {
 			//use default tags
-			$tags = $this->plugin->getConfig ()->get ( "default-player-tags");
+			$tags = $this->plugin->users ()->get ( "default-player-tags");
 		}				
 		if ($tags == null) {
 			 $tags = "";
@@ -180,7 +187,7 @@ class ccListener implements Listener {
 		
 		$format = str_replace ( "{WORLD_NAME}", $player->getLevel ()->getName (), $format );
 		
-		$nick = $this->plugin->getConfig ()->get ( $player->getName () > ".nick");
+		$nick = $this->plugin->users ()->get ( $player->getName () > ".nick");
 		if ($nick!=null) {
 			$format = str_replace ( "{DISPLAY_NAME}", $nick, $format );
 		} else {
@@ -192,12 +199,12 @@ class ccListener implements Listener {
 		$level = $player->getLevel ()->getName ();
 		
 		$prefix = null;
-		$playerPrefix = $this->plugin->getConfig ()->get ( $player->getName ().".prefix" );
+		$playerPrefix = $this->plugin->users ()->get ( $player->getName ().".prefix" );
 		if ($playerPrefix != null) {
 			$prefix = $playerPrefix;
 		} else {
 			//use default prefix
-			$prefix = $this->plugin->getConfig ()->get ( "default-player-prefix");
+			$prefix = $this->plugin->cfg ()->get ( "default-player-prefix");
 		}				
 		if ($prefix == null) {
 			$prefix = "";

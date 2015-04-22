@@ -55,16 +55,16 @@ class ccCommand {
 		}
 		// disable chat for all players
 		if ((strtolower ( $command->getName () ) == "disablechat")) {
-			$this->plugin->getConfig ()->set ( "disablechat", true ); // config.yml
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->cfg ()->set ( "disablechat", true ); // config.yml
+			$this->plugin->cfg ()->save ();
 			$sender->sendMessage (TextFormat::RED . "disable chat for all players" );
 			$this->log ( "disable chat for all players" );
 			return;
 		}
 		// enable chat for all players
 		if ((strtolower ( $command->getName () ) == "enablechat")) {
-			$this->plugin->getConfig ()->set ( "disablechat", false ); // config.yml
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->cfg ()->set ( "disablechat", false ); // config.yml
+			$this->plugin->cfg ()->save ();
 			$sender->sendMessage (TextFormat::GREEN . "enable chat for all players" );
 			$this->log ( "enable chat for all players" );
 			return;
@@ -79,8 +79,8 @@ class ccCommand {
 				return true;
 			}
 			$prefix = $args [1];
-			$this->plugin->getConfig ()->set ( "default-player-prefix", $prefix );
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->cfg ()->set ( "default-player-prefix", $prefix );
+			$this->plugin->cfg ()->save ();
 			$sender->sendMessage (TextFormat::RED . " all players default prefix set to " . $args [1] );
 			return;
 		}
@@ -94,8 +94,8 @@ class ccCommand {
 				return true;
 			}
 			$prefix = $args [1];
-			$this->plugin->getConfig ()->set ( $p->getName ().".prefix", $prefix );
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->users ()->set ( $p->getName ().".prefix", $prefix );
+			$this->plugin->users ()->save ();
 			
 			// $p->setDisplayName($prefix.":".$name);
 			$this->plugin->formatterPlayerDisplayName ( $p );
@@ -111,8 +111,8 @@ class ccCommand {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
 				return true;
 			}
-			$this->plugin->getConfig ()->remove ( $p->getName () . ".prefix" );
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->users ()->remove ( $p->getName () . ".prefix" );
+			$this->plugin->users ()->save ();
 			$sender->sendMessage (TextFormat::RED . $p->getName () . " prefix set to default" );
 			return;
 		}
@@ -126,8 +126,8 @@ class ccCommand {
 				return true;
 			}
 			$nick = $args [1];
-			$this->plugin->getConfig ()->set ( $p->getName () . ".nick", $nick );
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->users ()->set ( $p->getName () . ".nick", $nick );
+			$this->plugin->users ()->save ();
 			
 			$this->plugin->formatterPlayerDisplayName ( $p );
 			$sender->sendMessage (TextFormat::GREEN . $p->getName () . " nick name set to " . $args [1] );
@@ -142,8 +142,8 @@ class ccCommand {
 				return true; 
 			}
 			$nick = $args [1];
-			$this->plugin->getConfig ()->remove ( $p->getName () . ".nick" );
-			$this->plugin->getConfig ()->save ();
+			$this->plugin->users ()->remove ( $p->getName () . ".nick" );
+			$this->plugin->users ()->save ();
 			// save yml
 			
 			$this->plugin->formatterPlayerDisplayName ( $p );
