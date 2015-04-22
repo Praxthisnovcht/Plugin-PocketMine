@@ -102,41 +102,45 @@ class ccMain extends PluginBase implements CommandExecutor {
 	
 	public function formatterPlayerDisplayName(Player $p) {
 		$prefix=null;
-		$playerPrefix = $this->users ()->get ( $p->getName ().".prefix" );
-		if ($playerPrefix != null) {
-			$prefix = $playerPrefix;
-		} else {
-			//use default prefix
-			$prefix = $this->cfg ()->get ( "default-player-prefix");
-		}
+             $this->users = $this->getDataFolder();
+		         $playerPrefix = $this->users ()->get ( $p->getName ().".prefix" ); 106
+		             if ($playerPrefix != null) {
+			             $prefix = $playerPrefix;
+		                     } else {
+			                     //use default prefix
+                                         $this->cfg = $this->getConfig()->getAll();
+			                                  $prefix = $this->cfg ()->get ( "default-player-prefix");
+		                                         }
 	
-		//check if player has nick name
-		$nick = $this->users ()->get ( $p->getName().".nick");
-		if ($nick!=null && $prefix!=null) {
-			$p->setNameTag( $prefix . ":" . $nick );
-			return;
-		}
-		if ($nick!=null && $prefix==null) {
-			$p->setNameTag($nick );
-			return;
-		}
-		if ($nick==null && $prefix!=null) {
-			$p->setNameTag($prefix . ":".$p->getName());
-			return;
-		}
+		                                             //check if player has nick name
+                                                         $this->users = $this->getDataFolder();
+		                                                     $nick = $this->users ()->get ( $p->getName().".nick");
+		                                                         if ($nick!=null && $prefix!=null) {
+			                                                         $p->setNameTag( $prefix . ":" . $nick );
+			                                                             return;
+		                                                                     }
+		                                                                         if ($nick!=null && $prefix==null) {
+			                                                                         $p->setNameTag($nick );
+			                                                                                 return;
+		                                                                                         }
+		                                                                                             if ($nick==null && $prefix!=null) {
+			                                                                                             $p->setNameTag($prefix . ":".$p->getName());
+			                                                                                                 return;
+		                                                                                                         }
 	
-		//default to regular name
-		$p->setNameTag($p->getName());
-		return;
-		
+		                                                                                                             //default to regular name
+		                                                                                                                 $p->setNameTag($p->getName());
+		                                                                                                                     return;
+	// NEW VERSION //	
 		
 		$tags=null;
-		$playerPrefix = $this->users ()->get ( $p->getName ().".tags" );
-		if ($playerTags != null) {
-			$tags = $playerTags;
-		} else {
-			//use default prefix
-			$tags = $this->cfg ()->get ( "default-player-tags");
+		     $playerPrefix = $this->users ()->get ( $p->getName ().".tags" );
+		         if ($playerTags != null) {
+			         $tags = $playerTags;
+		                 } else {
+			                 //use default prefix
+                                 $this->cfg = $this->getConfig()->getAll();
+			                         $tags = $this->cfg ()->get ( "default-player-tags");
 		}
 	}
     public function AlreadyPrsent($player){

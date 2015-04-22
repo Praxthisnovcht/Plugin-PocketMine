@@ -73,6 +73,7 @@ class ccListener implements Listener {
 		}
 	}
     public function onPlayerQuit(PlayerQuitEvent $event){ // Thank to Guillaume351 Help Me !
+      $this->cfg = $this->getConfig()->getAll();
          $message = $this->plugin->cfg()->get("CustomLeave");
              $player = $event->getPlayer();
                  $event->setQuitMessage(null);
