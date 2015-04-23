@@ -49,7 +49,7 @@ class SignStats extends PluginBase implements Listener{
 	public function onSignChange(SignChangeEvent $event){
 	$player = $event->getPlayer();
 		if(strtolower(trim($event->getLine(0))) == "stats" || strtolower(trim($event->getLine(0))) == "[STATS]"){
-			if($player->hasPermission("signstats.commands.sign")){
+			if($player->hasPermission("signstats.perms.sign")){
 			          $Kills = $player->getKills();
 			          $Deaths = $player->getDeaths();   
 			          $Ratio = $player->getKills();     					  
@@ -63,19 +63,33 @@ class SignStats extends PluginBase implements Listener{
 				$player->sendMessage("[SignStats] You don't have permissions!");
 				
 				$event->setLine(0,"[ACESS DENIED]");
-				$event->setLine(1,"ACESS DENIED");
-				$event->setLine(2,"ACESS DENIED");
-				$event->setLine(3,"ACESS DENIED");
+				$event->setLine(1,"[ACESS DENIED]");
+				$event->setLine(2,"[ACESS DENIED]");
+				$event->setLine(3,"[ACESS DENIED]");
 				
 			}
 		}
 	}
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+	  if($player->hasPermission("signstats.commands.stats")){
 		switch($command->getName()){
+				$player = $event->getPlayer();
+					  $Kills = $player->getKills();
+			          $Deaths = $player->getDeaths();   
+			          $Ratio = $player->getKdRatio();  
 			case "stats":
+		$sender->sendMessage(TextFormat::GREEN ."====== Vos stats =====");
+		$sender->sendMessage(TextFormat::GREEN ."- Kills : " . $Kills);
+		$sender->sendMessage(TextFormat::GREEN ."- Deaths : " . $Deaths );
+		$sender->sendMessage(TextFormat::GREEN ."- Ratio : " . $getKdRatio);
+		$sender->sendMessage(TextFormat::GREEN ."=====================");
 				return true;
+		        }
 	        }
-        }
+			}else{
+				$player->sendMessage("[SignStats] You don't have permissions!");
+		
+			}
 	
 	public function onPlayerDeath(PlayerDeathEvent $event){
 		//Getting Victim
@@ -123,7 +137,7 @@ class SignStats extends PluginBase implements Listener{
 
 */
 
- /**   function getKdRatio($kills, $deaths, $digits = 3){
+    function getKdRatio($kills, $deaths, $digits = 3){
 
         if($deaths === 0) return "N/A";
 
@@ -131,7 +145,6 @@ class SignStats extends PluginBase implements Listener{
             return rtrim($ratio, " 0.");
   
    }
-*/	
 	public function getKills($player){
 		$data = new Config($this->getDataFolder() . "data/" . strtolower($player) . ".yml", Config::YAML);
 		//Check data

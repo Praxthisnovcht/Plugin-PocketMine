@@ -1,0 +1,21 @@
+name: EasyHouse
+version: 1.0.0
+api: 1.0.0
+main: Praxthisnovcht\EasyHouse\EasyHouse
+author: [Praxthisnovcht]
+description: Check Home and BackHome
+
+
+commands:
+ sethouse:
+  description: Sets House 
+  usage: "Usage: /sethouse"
+  permission: easyhouse.commands.sethouse
+ delhouse:
+  description: Deletes House 
+  usage: "Usage: /delhouse"
+  permission: easyhouse.commands.delhouse
+ house:
+  description: Teleports to House 
+  usage: "Usage: /house"
+  permission: easyhouse.commands.house

@@ -6,5 +6,9 @@ author: [Praxthisnovcht]
 description: Check Stats Sign
 
 permissions:
- signstats.commands.sign:
+ signstats.perms.sign:
   description: Create SignStats
+commands:
+ stats:
+  description: "View Stats Users (Kills-Deaths-Ratio)"
+  permission: signstats.commands.stats
