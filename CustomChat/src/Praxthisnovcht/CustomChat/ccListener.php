@@ -36,7 +36,7 @@ class ccListener implements Listener {
 		$this->factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
 	}
 	public function onPlayerChat(PlayerChatEvent $event) {
-		$this->config = new Config($this->getDataFolder()."config.yml", Config::YAML);
+		$this->config = ccMain::getInstance()->getCfg();
 		$allowChat = $this->config->get ( "disablechat" );
 		// $this->log ( "allowChat ".$allowChat);
 		if ($allowChat) {
@@ -78,7 +78,7 @@ class ccListener implements Listener {
 		}
 	}
     public function onPlayerQuit(PlayerQuitEvent $event){ 
-    $this->config = new Config($this->getDataFolder()."config.yml", Config::YAML);
+    $this->config = ccMain::getInstance()->getCfg();
          $message = $this->config->get("CustomLeave");
              $player = $event->getPlayer();
                  $event->setQuitMessage(null);
@@ -95,7 +95,7 @@ class ccListener implements Listener {
     } 
 }
     public function onPlayerJoin(PlayerJoinEvent $event) { // Thank to Guillaume351 Help Me !
-     $this->config = new Config($this->getDataFolder()."config.yml", Config::YAML);
+     $this->config = ccMain::getInstance()->getCfg();
          $player = $event->getPlayer ();
              $this->plugin->formatterPlayerDisplayName ( $player );
                  $message = $this->config->get("CustomJoin");
@@ -130,7 +130,7 @@ class ccListener implements Listener {
 // 	}
 	
 	public function getFormattedMessage(Player $player, $message) {
-		 $this->config = new Config($this->getDataFolder()."config.yml", Config::YAML);
+		 $this->config = ccMain::getInstance()->getCfg();
 		$format = $this->config->get ( "chat-format" );
 		// $format = "<{PREFIX} {USER_NAME}> {MESSAGE}";	
 
