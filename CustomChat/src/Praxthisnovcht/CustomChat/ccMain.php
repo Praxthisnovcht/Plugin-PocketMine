@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Praxthisnovcht\CustomChat;
 
 use pocketmine\command\Command;
