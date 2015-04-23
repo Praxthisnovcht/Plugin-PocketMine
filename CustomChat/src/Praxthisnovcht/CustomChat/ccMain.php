@@ -51,7 +51,9 @@ class ccMain extends PluginBase implements CommandExecutor {
 	private $factionspro, $pureperms, $economyjob, $playerstats;
 
 	public $swCommand;
-	
+	public static function getInstance(){
+    	return self::$object;
+    }
 	/**
 	 * OnLoad
 	 * (non-PHPdoc)
@@ -59,6 +61,9 @@ class ccMain extends PluginBase implements CommandExecutor {
 	 * @see \pocketmine\plugin\PluginBase::onLoad()
 	 */
 	public function onLoad() {
+			if(!self::$object instanceof EcoAPI){
+    		self::$object = $this;
+    	}
 	    $this->getLogger()->info(TextFormat::YELLOW . "Loading CustomChat v_1.4.5 by Praxthisnovcht");
 		$this->swCommand = new ccCommand ( $this );
 	}
@@ -180,5 +185,7 @@ if(!is_file($this->path."config.yml")){
 		return false;
 	}
 	
-	
+	public function getCfg(){
+		return new Config($this->getDataFolder()."config.yml", Config::YAML);
+	}
 }
