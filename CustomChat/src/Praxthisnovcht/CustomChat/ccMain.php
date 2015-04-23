@@ -129,7 +129,7 @@ if(!is_file($this->path."config.yml")){
 	
 	public function formatterPlayerDisplayName(Player $p) {
 		$prefix=null;
-		$this->playerConfig = new Config($this->path."players/".$p->getName().".yml", Config::YAML);
+		$this->playerConfig = new Config($this->path."players\".$p->getName().".yml", Config::YAML);
 		$playerPrefix = $this->playerConfig->get ( $p->getName ().".prefix" );
 		if ($playerPrefix != null) {
 			$prefix = $playerPrefix;
