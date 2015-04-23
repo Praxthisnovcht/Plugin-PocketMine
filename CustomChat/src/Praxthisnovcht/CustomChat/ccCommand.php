@@ -38,10 +38,10 @@ class ccCommand {
 	 * @param array $args        	
 	 * @return boolean
 	 */
-	public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
- $this->config = new Config($this->getDataFolder()."config.yml", Config::YAML);
+    public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+		 $this->config = ccMain::getInstance()->getCfg();
 
-		if ((strtolower ( $command->getName () ) == "CustomChat")) {
+		if ((strtolower ( $command->getName () ) == "customchat")) {
 			$sender->sendMessage (TextFormat::RED . "-==[ CustomChat Info ]==-");
 			$sender->sendMessage (TextFormat::RED . "Usage: /mute <player>");
 			$sender->sendMessage (TextFormat::RED . "Usage: /unmute <player>");
@@ -58,6 +58,11 @@ class ccCommand {
 		}
 		// disable chat for all players
 		if ((strtolower ( $command->getName () ) == "disablechat")) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Useless");
+				return true;
+			}	
+		 $this->config = ccMain::getInstance()->getCfg();
 			$this->config->set ( "disablechat", true ); // config.yml
 			$this->config->save ();
 			$sender->sendMessage (TextFormat::RED . "disable chat for all players" );
@@ -66,8 +71,13 @@ class ccCommand {
 		}
 		// enable chat for all players
 		if ((strtolower ( $command->getName () ) == "enablechat")) {
+		  			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."No Need.");
+				return true;
+			}
+		    $this->config = ccMain::getInstance()->getCfg();
 			$this->config->set ( "disablechat", false ); // config.yml
-			$this->config->getConfig ()->save ();
+            $this->config->save ();
 			$sender->sendMessage (TextFormat::GREEN . "enable chat for all players" );
 			$this->log ( "enable chat for all players" );
 			return;
@@ -75,6 +85,10 @@ class ccCommand {
 		
 		// sets default prefix for new players
 		if ((strtolower ( $command->getName () ) == "defprefix") && isset ( $args [0] )) {
+					if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /defprefix <Player> <Prefix>");
+				return true;
+			}
 			$playerName = $args [0];
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
@@ -90,9 +104,12 @@ class ccCommand {
 		
 		// sets prefix for player
 		if ((strtolower ( $command->getName () ) == "setprefix") && isset ( $args [0] ) && isset ( $args [1] )) {
-		
+				if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /setprefix <Player> <Prefix>");
+				return true;
+			}		
 		$playerName = $args [0];
-		 $this->playerConfig = new Config($this->getDataFolder()."players/".$playerName.".yml", Config::YAML);
+		 	  $this->playerConfig = ccMain::getInstance()->getPlCfg($playerName);
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -110,8 +127,12 @@ class ccCommand {
 		
 		// set player's prefix to default.
 		if ((strtolower ( $command->getName () ) == "delprefix") && isset ( $args [0] )) {
+				if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /delprefix <Player>");
+				return true;
+			}	
 			$playerName = $args [0];
-			 $this->playerConfig = new Config($this->getDataFolder()."players/".$playerName.".yml", Config::YAML);
+			  $this->playerConfig = ccMain::getInstance()->getPlCfg($playerName);
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -125,8 +146,12 @@ class ccCommand {
 		
 		// sets nick for player
 		if ((strtolower ( $command->getName () ) == "setnick") && isset ( $args [0] ) && isset ( $args [1] )) {
+				if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /setnick <Player> <Nick>");
+				return true;
+			}	
 			$playerName = $args [0];
-			 $this->playerConfig = new Config($this->getDataFolder()."players/".$playerName.".yml", Config::YAML);
+		     $this->playerConfig = ccMain::getInstance()->getPlCfg($playerName);
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -142,8 +167,12 @@ class ccCommand {
 		}
 		// sets nick for player
 		if ((strtolower ( $command->getName () ) == "delnick") && isset ( $args [0] ) && isset ( $args [1] )) {
+				if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /delnick <Player>");
+				return true;
+			}	
 			$playerName = $args [0];
-			 $this->playerConfig = new Config($this->getDataFolder()."players/".$playerName.".yml", Config::YAML);
+	     		  $this->playerConfig = ccMain::getInstance()->getPlCfg($playerName);
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -161,6 +190,10 @@ class ccCommand {
 		
 		// mute player from chat
 		if ((strtolower ( $command->getName () ) == "mute") && isset ( $args [0] )) {
+				if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /mute <Player>");
+				return true;
+			}	
 			$playerName = $args [0];
 			// check if the player exist
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
@@ -176,6 +209,11 @@ class ccCommand {
 		}
 		// - unmute player from chat
 		if ((strtolower ( $command->getName () ) == "unmute") && isset ( $args [0] )) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /unmute <Player>");
+				return true;
+			}	
+
 			$playerName = $args [0];
 			// check if the player exist
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
@@ -200,7 +238,12 @@ class ccCommand {
 // TAGS
 		// sets default tags for new players
 		if ((strtolower ( $command->getName () ) == "deftags") && isset ( $args [0] )) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /deftags <Player> <Tags>");
+				return true;
+			}	
 			$playerName = $args [0];
+			$this->config = ccMain::getInstance()->getCfg();
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -215,8 +258,12 @@ class ccCommand {
 		
 		// sets tags for player
 		if ((strtolower ( $command->getName () ) == "tags") && isset ( $args [0] ) && isset ( $args [1] )) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /tags <Player> <Tags>");
+				return true;
+			}	
 			$playerName = $args [0];
-			 $this->playerConfig = new Config($this->getDataFolder()."players/".$playerName.".yml", Config::YAML);
+			  $this->playerConfig = ccMain::getInstance()->getPlCfg($playerName);
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -234,8 +281,12 @@ class ccCommand {
 		
 		// set player's tags to default.
 		if ((strtolower ( $command->getName () ) == "deltags") && isset ( $args [0] )) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Usage: /tags <Player>");
+				return true;
+			}	
 			$playerName = $args [0];
-			 $this->playerConfig = new Config($this->getDataFolder()."players/".$playerName.".yml", Config::YAML);
+	     	  $this->playerConfig = ccMain::getInstance()->getPlCfg($playerName);
 			$p = $sender->getServer ()->getPlayerExact ( $playerName );
 			if ($p == null) {
 				$sender->sendMessage (TextFormat::RED . "player " . $playerName . " is not online!" );
@@ -248,6 +299,11 @@ class ccCommand {
 		}
 		// disable PerWorldChat for all players
 		if ((strtolower ( $command->getName () ) == "disableworld")) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Useless");
+				return true;
+			}	
+		    $this->config = ccMain::getInstance()->getCfg();
 			$this->config->set ( "per-world-chat", false ); // config.yml
 			$this->config->save ();
 			$sender->sendMessage (TextFormat::RED . "disable PerWorldChat for all players" );
@@ -256,6 +312,11 @@ class ccCommand {
 		}
 		// enable PerWorldChat for all players
 		if ((strtolower ( $command->getName () ) == "enableworld")) {
+			if(empty($args[0])) {
+				$sender->sendMessage (TextFormat::DARK_BLUE ."Useless");
+				return true;
+			}	
+		    $this->config = ccMain::getInstance()->getCfg();
 			$this->config->set ( "per-world-chat", true ); // config.yml
 			$this->config->getConfig ()->save ();
 			$sender->sendMessage (TextFormat::GREEN . "enable PerWorldChat for all players" );

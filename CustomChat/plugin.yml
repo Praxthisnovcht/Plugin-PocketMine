@@ -1,5 +1,5 @@
 name: CustomChat
-version: 1.4.5
+version: INDEV
 api: 1.7.1
 main: Praxthisnovcht\CustomChat\ccMain
 author: [Praxthisnovcht]

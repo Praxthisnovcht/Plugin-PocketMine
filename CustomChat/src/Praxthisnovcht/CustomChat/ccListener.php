@@ -168,22 +168,6 @@ class ccListener implements Listener {
 			$nofac = $this->config->get ( "if-player-has-no-faction");
 			$format = str_replace ( "{FACTION}", $nofac, $format );
 		}
-		$tags = null;
-		$playerTags = $this->playerConfig->get ( $player->getName ().".tags" );
-		if ($playerTags != null) {
-			$tags = $playerTags;
-		} else {
-			//use default tags
-			$tags = $this->config->get ( "default-player-tags");
-		}				
-		if ($tags == null) {
-			 $tags = "";
-		         }
-		             $format = str_replace ( "{TAGS}", $tags, $format );
-		                 return $format;
-
-
-
 
 
 		
@@ -200,8 +184,24 @@ class ccListener implements Listener {
 		
 		$level = $player->getLevel ()->getName ();
 		
+// LOST FORMAT TAGS REMOVED 
+		$tags = null;
+		$playerTags = $this->playerConfig->get ( $player->getName ().".tags" );
+		if ($playerTags != null) {
+			$tags = $playerTags;
+		} else {
+			//use default tags
+			$tags = $this->config->get ( "default-player-tags");
+		}				
+		if ($tags == null) {
+			 $tags = "";
+		         }
+		             $format = str_replace ( "{TAGS}", $tags, $format );
+
+
+
 		$prefix = null;
-			 $this->playerConfig = new Config($this->getDataFolder()."players/".$player->getName().".yml", Config::YAML);
+	     		$this->playerConfig = ccMain::getInstance()->getPlCfg($player->getName());
 		$playerPrefix = $this->playerConfig->get ( $player->getName ().".prefix" );
 		if ($playerPrefix != null) {
 			$prefix = $playerPrefix;

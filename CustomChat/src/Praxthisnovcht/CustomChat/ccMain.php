@@ -96,12 +96,16 @@ private static $object = null;
 		}
 		$this->getServer()->getPluginManager()->registerEvents(new ccListener($this), $this);
 		$this->log ( TextFormat::GREEN . "- CustomChat - Enabled!" );
-$this->path = $this->getDataFolder(); 
+		
+		
+          @mkdir($this->getDataFolder());
+		  @mkdir($this->getDataFolder() . "players/");
+                    $this->path = $this->getDataFolder(); 
 
-if(!is_file($this->path."config.yml")){
-			file_put_contents($this->path."config.yml", $this->readResource("config.yml"));
-			}
-			$this->config = new Config($this->path."config.yml", Config::YAML);
+                 if(!is_file($this->path."config.yml")){
+			         file_put_contents($this->path."config.yml", $this->readResource("config.yml"));
+			             }
+			                 $this->config = new Config($this->path."config.yml", Config::YAML);
 	}
 	
 	/**
@@ -129,7 +133,7 @@ if(!is_file($this->path."config.yml")){
 	
 	public function formatterPlayerDisplayName(Player $p) {
 		$prefix=null;
-		$this->playerConfig = new Config($this->path."players\".$p->getName().".yml", Config::YAML);
+		$this->playerConfig = new Config($this->path."players/".$p->getName().".yml", Config::YAML);
 		$playerPrefix = $this->playerConfig->get ( $p->getName ().".prefix" );
 		if ($playerPrefix != null) {
 			$prefix = $playerPrefix;
@@ -188,7 +192,7 @@ if(!is_file($this->path."config.yml")){
 	public function getCfg(){
 		return new Config($this->getDataFolder()."config.yml", Config::YAML);
 	}
-	public function getPlCfg($player){
-		return new Config($this->getDataFolder()."players\".$player.".yml", Config::YAML);
-	}
+ public function getPlCfg($player){
+  return new Config($this->getDataFolder()."players/".$player.".yml", Config::YAML);
+ }
 }
