@@ -132,6 +132,7 @@ class ccListener implements Listener {
 	public function getFormattedMessage(Player $player, $message) {
 		 $this->config = ccMain::getInstance()->getCfg();
 		$format = $this->config->get ( "chat-format" );
+		$this->playerConfig = ccMain::getInstance()->getPlCfg($player->getName());
 		// $format = "<{PREFIX} {USER_NAME}> {MESSAGE}";	
 
 
@@ -168,7 +169,7 @@ class ccListener implements Listener {
 			$format = str_replace ( "{FACTION}", $nofac, $format );
 		}
 		$tags = null;
-		$playerTags = $this->config->get ( $player->getName ().".tags" );
+		$playerTags = $this->playerConfig->get ( $player->getName ().".tags" );
 		if ($playerTags != null) {
 			$tags = $playerTags;
 		} else {
