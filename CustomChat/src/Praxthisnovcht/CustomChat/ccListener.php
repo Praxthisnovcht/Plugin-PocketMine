@@ -97,7 +97,7 @@ class ccListener implements Listener {
     public function onPlayerJoin(PlayerJoinEvent $event) { // Thank to Guillaume351 Help Me !
      $this->config = ccMain::getInstance()->getCfg();
          $player = $event->getPlayer ();
-             $this->plugin->formatterPlayerDisplayName ( $player );
+          ccMain::getInstance()->formatterPlayerDisplayName ( $player );
                  $message = $this->config->get("CustomJoin");
                      $player = $event->getPlayer();
 					     $event->setJoinMessage(null);
