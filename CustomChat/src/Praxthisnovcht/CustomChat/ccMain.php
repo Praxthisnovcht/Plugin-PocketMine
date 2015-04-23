@@ -61,7 +61,7 @@ private static $object = null;
 	 * @see \pocketmine\plugin\PluginBase::onLoad()
 	 */
 	public function onLoad() {
-			if(!self::$object instanceof EcoAPI){
+			if(!self::$object instanceof ccMain){
     		self::$object = $this;
     	}
 	    $this->getLogger()->info(TextFormat::YELLOW . "Loading CustomChat v_1.4.5 by Praxthisnovcht");
