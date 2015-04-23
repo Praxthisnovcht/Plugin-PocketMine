@@ -77,7 +77,7 @@ class ccListener implements Listener {
 			return;
 		}
 	}
-    public function onPlayerQuit(PlayerQuitEvent $event){ // Thank to Guillaume351 Help Me !
+    public function onPlayerQuit(PlayerQuitEvent $event){ 
     $this->config = new Config($this->getDataFolder()."config.yml", Config::YAML);
          $message = $this->config->get("CustomLeave");
              $player = $event->getPlayer();
