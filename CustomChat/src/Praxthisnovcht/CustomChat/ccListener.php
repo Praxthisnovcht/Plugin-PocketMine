@@ -13,7 +13,7 @@ use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
-
+use pocketmine\Server;
 
 use MassiveEconomy\MassiveEconomyAPI;
 use Praxthisnovcht\KillChat\KillChat;
