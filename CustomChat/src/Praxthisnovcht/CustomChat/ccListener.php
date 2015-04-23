@@ -14,7 +14,7 @@ use pocketmine\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use pocketmine\Server;
-
+use pocketmine\plugin\PluginBase;
 use MassiveEconomy\MassiveEconomyAPI;
 use Praxthisnovcht\KillChat\KillChat;
 /**
