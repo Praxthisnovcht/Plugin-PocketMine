@@ -49,7 +49,7 @@ use MassiveEconomy\MassiveEconomyAPI;
 class ccMain extends PluginBase implements CommandExecutor {
 
 	private $factionspro, $pureperms, $economyjob, $playerstats;
-
+private static $object = null;
 	public $swCommand;
 	public static function getInstance(){
     	return self::$object;
