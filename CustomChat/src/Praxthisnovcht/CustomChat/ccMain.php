@@ -188,4 +188,7 @@ if(!is_file($this->path."config.yml")){
 	public function getCfg(){
 		return new Config($this->getDataFolder()."config.yml", Config::YAML);
 	}
+	public function getPlCfg($player){
+		return new Config($this->getDataFolder()."players\".$player.".yml", Config::YAML);
+	}
 }
