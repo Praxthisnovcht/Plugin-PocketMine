@@ -78,7 +78,7 @@ class SignStats extends PluginBase implements Listener{
 			          $Deaths = $player->getDeaths();   
 			          $Ratio = $player->getKdRatio();  
 			case "stats":
-		$sender->sendMessage(TextFormat::GREEN ."====== Vos stats =====");
+		$sender->sendMessage(TextFormat::GREEN ."-==[ Stats Users ]==-");
 		$sender->sendMessage(TextFormat::GREEN ."- Kills : " . $Kills);
 		$sender->sendMessage(TextFormat::GREEN ."- Deaths : " . $Deaths );
 		$sender->sendMessage(TextFormat::GREEN ."- Ratio : " . $getKdRatio);
