@@ -1,0 +1,24 @@
+ # CustomChat by Praxthisnovchtcht Config File;
+############################################################################
+# Chat-Format Config
+chat-format: '{WORLD_NAME}:[{TAGS}][{PREFIX}]<{DISPLAY_NAME}> {MESSAGE}'
+############################################################################
+# Enable or Disable Chat-Format true/false
+enable-formatter: true
+############################################################################
+#Disable-Chat for All Player
+disablechat: false
+############################################################################
+# Prefix Default for All player {PREFIX}
+default-player-prefix: PFX
+############################################################################
+#Tags Default for All player {TAGS}
+default-player-tags: TAGS
+############################################################################
+# Optionnal (Need FactionsPro) Player No Faction here 
+if-player-has-no-faction: NoFaction
+############################################################################
+# authorizes discution only between worlds By Asparanc
+per-world-chat: false
+############################################################################
+...

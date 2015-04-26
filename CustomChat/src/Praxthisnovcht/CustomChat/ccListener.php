@@ -79,76 +79,90 @@ class ccListener implements Listener {
 	}
     public function onPlayerQuit(PlayerQuitEvent $event){ 
     $this->config_message = ccMain::getInstance()->getMCfg();
-	   $enable_popup = $this->config_message->get ( "Enable-CustomLeave-Popup" );
-       $enable_message = $this->config_message->get ( "Enable-CustomLeave-Message" );
-         $message = $this->config_message->get("CustomLeave-Message");
-             if (isset ( $enable_message ) and $enable_message === true) {
-				 $event->setQuitMessage (null);
-                 $player = $event->getPlayer();
+         $message = $this->config_message->get("Enable-CustomLeave-Message");
+             $player = $event->getPlayer();
+                 $event->setQuitMessage(null);
                      if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
                          $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName()));
                              $message = str_replace ( "@Faction", $getUserFaction, $message );
                                  }else{
+									 $this->config = ccMain::getInstance()->getCfg();
                                      $nofac = $this->config->get ( "if-player-has-no-faction");
                                          $message = str_replace ( "@Faction", $nofac, $message );
                                              }
-                                                 $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
-                                                     foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
-                                                         $player->sendPopup($message);
-                                                             } 
-                                                                 }
-																     if (isset ( $enable_popup ) and $enable_popup === true) {
-																	         $event->setQuitMessage(null);
-																			     $player = $event->getPlayer();
-																			        $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);		
-		                                                                                 if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
-			                                                                                 $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName())); 
-			                                                                                     $message = str_replace ( "@Faction", $getUserFaction, $message );
-		                                                                                             }else{
-																										 $this->config = ccMain::getInstance()->getCfg();
-			                                                                                             $nofac = $this->config ()->get ( "if-player-has-no-faction");
-			                                                                                                 $message = str_replace ( "@Faction", $nofac, $message );
-		                                                                                                         }
-		                                                                                                             $event->setQuitMessage($message);
-	                                                                                                                 }
-	}																		 
+		                                         if($this->massive) {
+			                                         $message = str_replace ( "{Money}", MassiveEconomyAPI::getInstance()->getMoney($player->getName()), $message); 
+		                                                 }else{
+			                                                 $message = str_replace ( "{Money}", "ERROR", $message);
+		                                                         }
+		                                                             if(!$this->pureperms) {
+			                                                             $message = str_replace("{PurePerms}", "NoGroup", $message);
+		                                                                     }
+		                                                                         if($this->pureperms) {
+				                                                                     $isMultiWorldEnabled = $this->pureperms->getConfig()->get("enable-multiworld-formats");
+				                                                                         $levelName = $isMultiWorldEnabled ?  $player->getLevel()->getName() : null;
+                                                                                             $message = str_replace("{PurePerms}", $this->pureperms->getUser($player)->getGroup($levelName)->getName(), $message);
+                                                                                                 } else {
+                                                                                                     return false;
+                                                                                                         }
+		                                                                                                     if($this->killchat) {
+			                                                                                                     $message = str_replace ( "{Kills}", KillChat::getInstance()->getKills($player->getName()), $message); 
+		                                                                                                             }else{
+			                                                                                                             $message = str_replace ( "{Kills}", "ERROR", $message);
+		                                                                                                                     }
+		                                                                                                                         if($this->killchat) {
+			                                                                                                                         $message = str_replace ( "{Deaths}", KillChat::getInstance()->getDeaths($player->getName()), $message); 
+		                                                                                                                                 }else{
+			                                                                                                                                 $message = str_replace ( "{Deaths}", "ERROR", $message);
+		                                                                                                                                         }																 
+                                                                                                                                                     $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
+                                                                                                                                                         foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
+                                                                                                                                                             $player->sendPopup($message);
+	    }   
+	}
     public function onPlayerJoin(PlayerJoinEvent $event) {
-    $player = $event->getPlayer();
-    ccMain::getInstance()->formatterPlayerDisplayName ( $player );
-     $this->config_message = ccMain::getInstance()->getMCfg();
-	   $enable_popup = $this->config_message->get ( "Enable-CustomJoin-Popup" );
-       $enable_message = $this->config_message->get ( "Enable-CustomJoin-Message" );
-         $message = $this->config_message->get("CustomJoin-Message");
-             if (isset ( $enable_message ) and $enable_message === true) {
-				 $event->setJoinMessage (null);
-                 $player = $event->getPlayer();
+    $this->config_message = ccMain::getInstance()->getMCfg();
+         $message = $this->config_message->get("Enable-CustomJoin-Message");
+             $player = $event->getPlayer();
+                 $event->setJoinMessage(null);
                      if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
                          $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName()));
                              $message = str_replace ( "@Faction", $getUserFaction, $message );
                                  }else{
+									 $this->config = ccMain::getInstance()->getCfg();
                                      $nofac = $this->config->get ( "if-player-has-no-faction");
                                          $message = str_replace ( "@Faction", $nofac, $message );
                                              }
-                                                 $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
-                                                     foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
-                                                         $player->sendPopup($message);
-                                                             } 
-                                                                 }
-																     if (isset ( $enable_popup ) and $enable_popup === true) {
-																	         $event->setJoinMessage(null);
-																			     $player = $event->getPlayer();
-																			        $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);		
-		                                                                                 if($this->factionspro == true && $this->factionspro->isInFaction(strtolower($player->getName()))) {
-			                                                                                 $getUserFaction = $this->factionspro->getPlayerFaction(strtolower($player->getName())); 
-			                                                                                     $message = str_replace ( "@Faction", $getUserFaction, $message );
-		                                                                                             }else{
-																										 $this->config = ccMain::getInstance()->getCfg();
-			                                                                                             $nofac = $this->config ()->get ( "if-player-has-no-faction");
-			                                                                                                 $message = str_replace ( "@Faction", $nofac, $message );
-		                                                                                                         }
-		                                                                                                             $event->setJoinMessage($message);
-	                                                                                                                 }
-}
+		                                         if($this->massive) {
+			                                         $message = str_replace ( "{Money}", MassiveEconomyAPI::getInstance()->getMoney($player->getName()), $message); 
+		                                                 }else{
+			                                                 $message = str_replace ( "{Money}", "ERROR", $message);
+		                                                         }
+		                                                             if(!$this->pureperms) {
+			                                                             $message = str_replace("{PurePerms}", "NoGroup", $message);
+		                                                                     }
+		                                                                         if($this->pureperms) {
+				                                                                     $isMultiWorldEnabled = $this->pureperms->getConfig()->get("enable-multiworld-formats");
+				                                                                         $levelName = $isMultiWorldEnabled ?  $player->getLevel()->getName() : null;
+                                                                                             $message = str_replace("{PurePerms}", $this->pureperms->getUser($player)->getGroup($levelName)->getName(), $message);
+                                                                                                 } else {
+                                                                                                     return false;
+                                                                                                         }
+		                                                                                                     if($this->killchat) {
+			                                                                                                     $message = str_replace ( "{Kills}", KillChat::getInstance()->getKills($player->getName()), $message); 
+		                                                                                                             }else{
+			                                                                                                             $message = str_replace ( "{Kills}", "ERROR", $message);
+		                                                                                                                     }
+		                                                                                                                         if($this->killchat) {
+			                                                                                                                         $message = str_replace ( "{Deaths}", KillChat::getInstance()->getDeaths($player->getName()), $message); 
+		                                                                                                                                 }else{
+			                                                                                                                                 $message = str_replace ( "{Deaths}", "ERROR", $message);
+		                                                                                                                                         }																 
+                                                                                                                                                     $message = str_replace("@Player", $event->getPlayer()->getDisplayName(), $message);
+                                                                                                                                                         foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
+                                                                                                                                                             $player->sendPopup($message);
+        }
+	}
 // 	public function formatterPlayerDisplayName(Player $p) {
 // 		$playerPrefix = $this->plugin->getConfig ()->get ( $player->getName () );
 // 		$defaultPrefix = $this->plugin->getConfig ()->get ( "default-player-prefix" );

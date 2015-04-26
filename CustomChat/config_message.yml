@@ -17,9 +17,6 @@ Duration: 3
 # Time Intereval Message For AutoMessage (Tick Per Second)
 Time_AutoMessage: 20
 ############################################################################
-# Enabled Auto-Message (False/true)
-Enable-AutoMessage: true
-############################################################################
 # Message for Popup and Message for Auto Message
 Message1: CustomChat 2.0.0 
 Message2: By Praxhisnovcht
@@ -30,6 +27,9 @@ Message5: CustomChat 2.0.0
 ############################################################################
 # Prefix Tags for Auto Message 
 Prefix: CC-Message
+############################################################################
+# Color For Prefix (AutoMessage)
+Color: 
 ############################################################################
 #Color Setting
 #BLACK = "§0";
