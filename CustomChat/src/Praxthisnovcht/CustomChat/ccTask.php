@@ -13,13 +13,8 @@ class ccTask extends PluginTask{
         parent::__construct($plugin);
         $this->plugin = $plugin;
 		$this->message = $message;
+        $this->duration = $duration;
     }
-    public function onRun($currentTick){
-        $this->getOwner();
-        $this->plugin->config_message = $this->owner->ccMain::getInstance()->getMCfg();
-    	if($this->config_message->get("Enable-AutoMessage")==true){
-//        $message = $messages[$messagekey];
-        $this->owner->getServer()->broadcastMessage($this->plugin->configFile($this->config_message->get["Prefix"]."): ".$message);
-         }
+    public function onRun($currentTick){  	
     }
 }

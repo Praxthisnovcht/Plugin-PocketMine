@@ -89,7 +89,7 @@ class ccCommand {
 			$prefix = $args [1];
 			$this->config->set ( "default-player-prefix", $prefix );
 			$this->config->save ();
-			$sender->sendMessage (TextFormat::RED . "[CustomChat] All players default prefix set to " . $args [1] );
+			$sender->sendMessage (TextFormat::RED . "[CustomChat]  All players default prefix set to " . $args [1] );
 			return;
 		}		
 		// sets prefix for player

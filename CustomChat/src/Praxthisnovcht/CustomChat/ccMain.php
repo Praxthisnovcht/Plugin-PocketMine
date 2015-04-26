@@ -113,9 +113,7 @@ class ccMain extends PluginBase implements CommandExecutor {
 			             }
 							 $this->config_message = new Config($this->path."config_message.yml", Config::YAML);
 							 
-        $this->config_message = ccMain::getInstance()->getMCfg();
-        $time = intval($this->config_message->get("Time_AutoMessage")) * 15;      
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new ccMain($this), $time);
+		$this->getServer()->getScheduler()->scheduleRepeatingTask(new ccMain($this), $time);
 	}
 	
 	/**
@@ -202,15 +200,10 @@ class ccMain extends PluginBase implements CommandExecutor {
 	public function getCfg(){
 		return new Config($this->getDataFolder()."config.yml", Config::YAML);
 	}
-    public function getPlCfg($player){
-        return new Config($this->getDataFolder()."players/".$player.".yml", Config::YAML);
-    }
+ public function getPlCfg($player){
+  return new Config($this->getDataFolder()."players/".$player.".yml", Config::YAML);
+ }
 	public function getMCfg(){
 		return new Config($this->getDataFolder()."config_message.yml", Config::YAML);
 	}
-    public function PopupInstant(){ // Next Update for Popup h24
-        foreach($this->getServer()->getOnlinePlayers() as $player){
-            $player->sendPopup($this->message);
-        }
-    }
 }
