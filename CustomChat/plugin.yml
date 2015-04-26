@@ -1,6 +1,6 @@
 name: CustomChat
 version: INDEV
-api: 1.7.1
+api: 1.12.0
 main: Praxthisnovcht\CustomChat\ccMain
 author: [Praxthisnovcht]
 description: Adds options on the discution salon
