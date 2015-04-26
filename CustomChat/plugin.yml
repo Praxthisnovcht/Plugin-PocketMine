@@ -44,3 +44,12 @@ commands:
  deltags:
   description: "set player's tags to default"
   permission: customchat.plugin.tags
+ disableworld:
+  description: "Disable PerWorldChat for all players"
+  permission: customchat.plugin.disableworld
+ enableworld:
+  description: "Enable PerWorldChat for all players"
+  permission: customchat.plugin.enableworld
+ alert:
+  description: "Simple Alert"
+  permission: customchat.plugin.alert

@@ -49,9 +49,11 @@ use MassiveEconomy\MassiveEconomyAPI;
 class ccMain extends PluginBase implements CommandExecutor {
 
 	private $factionspro, $pureperms, $economyjob, $playerstats;
-private static $object = null;
-	public $swCommand;
-	public static function getInstance(){
+	
+    private static $object = null;
+	     public $swCommand;
+	     public static function getInstance(){
+			 
     	return self::$object;
     }
 	/**
@@ -106,6 +108,12 @@ private static $object = null;
 			         file_put_contents($this->path."config.yml", $this->readResource("config.yml"));
 			             }
 			                 $this->config = new Config($this->path."config.yml", Config::YAML);
+                if(!is_file($this->path."config_message.yml")){
+			         file_put_contents($this->path."config_message.yml", $this->readResource("config_message.yml"));
+			             }
+							 $this->config_message = new Config($this->path."config_message.yml", Config::YAML);
+							 
+		$this->getServer()->getScheduler()->scheduleRepeatingTask(new ccMain($this), $time);
 	}
 	
 	/**
@@ -195,4 +203,7 @@ private static $object = null;
  public function getPlCfg($player){
   return new Config($this->getDataFolder()."players/".$player.".yml", Config::YAML);
  }
+	public function getMCfg(){
+		return new Config($this->getDataFolder()."config_message.yml", Config::YAML);
+	}
 }
