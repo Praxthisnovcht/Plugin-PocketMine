@@ -24,7 +24,7 @@ class Main extends PluginBase implements Listener{
 
 		     $this->config = new Config($this->getDataFolder()."config.yml", Config::YAML, array(
 			     "money"  => 100,
-			         "message" => "You kill {name} and earn {money} coins"
+			         "message" => "You kill {name} and earn {money} $"
                          ));
         
                              $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -42,6 +42,7 @@ class Main extends PluginBase implements Listener{
   }
 
 	public function onPlayerDeath(PlayerDeathEvent $event){
+               $entity = $event->getEntity();
         	     $cause = $entity->getLastDamageCause();
 			         if($cause instanceof EntityDamageByEntityEvent) {
 			           	 $killer = $cause->getDamager()->getPlayer();
