@@ -31,7 +31,14 @@ class MapResetCommand {
 			}
 		}
 		public function resetCommandMap() {
-			$this->plugin->getLogger->info("[MapReset] Resseting map. Please wait.");
+                $path = $this->getConfig()->get("folder");
+                 $this->getServer()->unloadLevel($w);
+                  $files = glob("../$path/worlds/$name/region"); // get all file names
+                   foreach($files as $file){ // iterate files
+                    if(is_file($file))
+                     unlink($file); // delete file
+                      }
+		       $this->plugin->getLogger->info("[MapReset] Resseting map. Please wait.");
 		}
 		public function log($message) {
 			$this->plugin->getLogger ()->info ( $message );
