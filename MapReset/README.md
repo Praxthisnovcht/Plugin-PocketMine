@@ -1,4 +1,4 @@
-# MapReset
+# MapReset ( it was sold to an individual. Project will never Upload here )
 MapReset is a plugin that makes it simple for servers to copy worlds and reset them.
 
 Can I use this plugin?
