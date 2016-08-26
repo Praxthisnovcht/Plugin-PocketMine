@@ -1,9 +1,0 @@
-name: MapReset
-version: 1.0.0
-api: 1.8.0
-description: MapReset is an essential plugin for almost any server who wants to reset worlds.
-main: MapReset\Main
-author: [Praxthisnovcht, xFlare]
-commands:
-    mapreset:
-        description: Resets the map when this command is used.

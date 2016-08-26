@@ -32,13 +32,13 @@ class BlockLocations extends PluginBase implements Listener {
     		if (! (in_array($brek, $this->locations)))
     		{
     			$this->locations[$pos] = $brek;
-    			$p->sendMessage("BreakPosition On");
+    			$p->sendMessage("§e[BlockLocations] Locations is §aAvailable.\n§eBreak the blocks or want to know the position ");
     		}
     		else
     		{
     			$fr = array_search($brek, $this->locations);
     			unset($this->locations[$fr]);
-    			$p->sendMessage("BreakPosition Off");
+    			$p->sendMessage("§e[BlockLocations] Locations is §cDisabled.\n§9Thank you for using!");
      		}
 
     	}
@@ -54,7 +54,8 @@ class BlockLocations extends PluginBase implements Listener {
 			$ru = $event->getBlock();
 			$zoo = strtolower($event->getPlayer()->getName());
 			$this->pos[$zoo] = new Vector3($ru->getX(),$ru->getY(),$ru->getZ());
-			$event->getPlayer()->sendMessage("BlockPosition :[x->" . $this->pos[$zoo]->getX() . "y->" . $this->pos[$zoo]->getY() . "z->" . $this->pos[$zoo]->getZ() . "]");
+			$event->getPlayer()->sendMessage("§e<Position> :\n§9x->" . $this->pos[$zoo]->getX() . "\n§9y->" . $this->pos[$zoo]->getY() . "\n§9z->" . $this->pos[$zoo]->getZ() . "§9");
+			$event->getPlayer()->sendTip("§eCoordinated created!"); 
 			$event->setCancelled(true);
 		}
 	}

@@ -1,6 +1,8 @@
 CustomChat v_1.2.0 ...
 ============
 
+#REWRITE
+
 ###### • Added option in the chat Format
 
 
