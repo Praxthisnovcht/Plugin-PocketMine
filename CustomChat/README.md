@@ -1,7 +1,6 @@
-CustomChat v_1.2.0 ...
+CustomChat v_2.4.1 ...
 ============
-
-#REWRITE
+## Update work With : PurePerms / MassiveEconomy / KillChat 
 
 ###### • Added option in the chat Format
 
@@ -37,7 +36,6 @@ CustomChat v_1.2.0 ...
 #Read documentation
 ######•Support PurePerms ( MultiWorld )
 ######•Support FactionsPro
-######•Support PlayerStats (TODO)
 ######•Support EconomyAPI
 ######•Support KillChat
 ######•Support MassiveEconomy

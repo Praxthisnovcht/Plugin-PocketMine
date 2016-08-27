@@ -1,0 +1,12 @@
+---
+chat-format: §e{WORLD_NAME}:§e[§a{TAGS}§e][§2{PREFIX}§e]§e<§9{DISPLAY_NAME}§e> §e{MESSAGE}
+enable-formatter: true
+factionspro-instance: FactionsPro
+disablechat: false
+default-player-prefix: ""
+default-player-tags: MyTags
+CustomChat options: '{Kills} | {Deaths} | [{Money}$] | {PurePerms} | {Faction}'
+CustomJoin: '@Player joined the server ! Iksaku is Awesome'
+CustomLeave: '@Player leave the server ! Iksaku is Awesome'
+per-world-chat: false
+...

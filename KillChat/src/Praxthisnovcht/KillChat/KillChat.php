@@ -12,6 +12,10 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\Listener;
 use Praxthisnovcht\CustomChat;
+/* 
+THE PRIVATE UPDATE
+*/
+use PraxCr7Prince\TurfWars;
 
 class KillChat extends PluginBase implements Listener{
 	
@@ -36,6 +40,21 @@ class KillChat extends PluginBase implements Listener{
 		$this->getLogger()->info(TextFormat::GREEN . "KillChat extension for CustomChat enabled");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
+	
+/*
+if($event->getCause() == EntityDamageByEntityEvent::CAUSE_PROJECTILE){
+
+$killer = $event->getDamager();
+$victim = $event->getEntity();
+
+
+if($this->inTF($victim)){
+
+if($this->getTeam($victim) == $this->getTeam($killer)){
+$event->setCancelled();
+return;
+}
+**/
 	
 	public function onPlayerDeath(PlayerDeathEvent $event){
 		//Getting Victim

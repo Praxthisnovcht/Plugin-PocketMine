@@ -1,0 +1,49 @@
+name: CustomChat
+version: 2.4.1
+api: [2.0.0, 1.0.0]
+main: Praxthisnovcht\CustomChat\ccMain
+author: [Praxthisnovcht, HotFireyDeath]
+description: Adds options on the discution salon
+commands:
+ setprefix:
+  description: "sets prefix for player"
+  permission: customchat.plugin.setprefix
+ defprefix:
+  description: "sets default prefix for new players"
+  permission: customchat.plugin.defprefix
+ delprefix:
+  description: "set player's prefix to default"
+  permission: customchat.plugin.delprefix
+ setnick:
+  description: "sets player's nick"
+  permission: customchat.plugin.setnick
+ delnick:
+  description: "returns players's real name"
+  permission: customchat.plugin.delnick
+ mute:
+  description: "mute player from chat"
+  permission: customchat.plugin.mute
+ unmute:
+  description: "unmute player from chat"
+  permission: customchat.plugin.unmute
+ disablechat:
+  description: "disable chat for all players"
+  permission: customchat.plugin.offchat
+ enablechat:
+  description: "enable chat for all player"
+  permission: customchat.plugin.onchat
+ customchat:
+  description: "CustomChat Features"
+  permission: customchat.plugin.info
+ customchat options:
+  description: "CustomChat Features"
+  permission: customchat.plugin.info
+ tags:
+  description: "sets tags for Player"
+  permission: customchat.plugin.tags
+ deftags:
+  description: "sets default tags for new players"
+  permission: customchat.plugin.defprefix
+ deltags:
+  description: "set player's tags to default"
+  permission: customchat.plugin.tags
