@@ -33,6 +33,8 @@ class PCListener implements Listener
     public function __construct(PureChat $plugin)
     {
         $this->plugin = $plugin;
+		
+		$this->PureKill = $this->plugin->getServer()->getPluginManager()->getPlugin("PureKill");
     }
 
     public function onGroupChanged(PPGroupChangedEvent $event)

@@ -7,6 +7,7 @@ use _64FF00\PureChat\factions\FactionsProNew;
 use _64FF00\PureChat\factions\FactionsProOld;
 use _64FF00\PureChat\factions\XeviousPE_Factions;
 
+
 use _64FF00\PurePerms\PPGroup;
 
 use pocketmine\command\Command;
@@ -19,10 +20,12 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 
+use Praxthisnovcht\PureKill\PureKill; 
+
 class PureChat extends PluginBase
 {
     /*
-        PureChat by 64FF00 (Twitter: @64FF00)
+        PureChat by 64FF00 (Twitter: @64FF00) EDITED
 
           888  888    .d8888b.      d8888  8888888888 8888888888 .d8888b.   .d8888b.
           888  888   d88P  Y88b    d8P888  888        888       d88P  Y88b d88P  Y88b
@@ -44,9 +47,13 @@ class PureChat extends PluginBase
 
     /** @var \_64FF00\PurePerms\PurePerms $purePerms */
     private $purePerms;
+	
+	private $PureKill;
 
     public function onLoad()
     {
+			$this->log ( TextFormat::GREEN . "- Version PureChat Edited" );
+			$this->log ( TextFormat::GREEN . "- By Praxthisnovcht" );
         $this->saveDefaultConfig();
 
         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
@@ -68,6 +75,11 @@ class PureChat extends PluginBase
         $this->loadFactionsPlugin();
 
         $this->getServer()->getPluginManager()->registerEvents(new PCListener($this), $this);
+		
+		if(!$this->getServer()->getPluginManager()->getPlugin("PureKill") == false) {
+			$PureKill = Server::getInstance()->getPluginManager()->getPlugin("PureKill");
+			$this->log ( TextFormat::GREEN . "- PureChat - Loaded With PureKill !" );
+		}
     }
 
     /**
@@ -328,7 +340,7 @@ class PureChat extends PluginBase
         $string = str_replace("{faction}", "{fac_rank}{fac_name}", $string);
         $string = str_replace("{user_name}", "{display_name}", $string);
         $string = str_replace("{message}", "{msg}", $string);
-
+		
         return $string;
     }
 
@@ -478,6 +490,34 @@ class PureChat extends PluginBase
 
         $string = str_replace("{prefix}", $this->getPrefix($player, $levelName), $string);
         $string = str_replace("{suffix}", $this->getSuffix($player, $levelName), $string);
+
+//VERSION PureChat CompaTible with PureKill		
+		if($this->PureKill) {
+			
+			
+			$string = str_replace ( "{Kills}", PureKill::getInstance()->getKills($player->getName()), $string); 
+			
+			
+		}else{
+			
+			
+			
+			$string = str_replace ( "{Kills}", "ERROR", $string);
+		}
+		
+		
+		if($this->PureKill) {
+			
+			
+			
+			$string = str_replace ( "{Deaths}", PureKill::getInstance()->getDeaths($player->getName()), $string); 
+			
+			
+		}else{
+			
+			
+			$string = str_replace ( "{Deaths}", "ERROR", $string);
+		}
 
         return $string;
     }
