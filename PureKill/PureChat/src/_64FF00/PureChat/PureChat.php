@@ -328,6 +328,8 @@ class PureChat extends PluginBase
         $string = str_replace("{faction}", "{fac_rank}{fac_name}", $string);
         $string = str_replace("{user_name}", "{display_name}", $string);
         $string = str_replace("{message}", "{msg}", $string);
+        $string = str_replace("{Kill}", "{kill_purekill}", $string);
+        $string = str_replace("{death}", "{deah_purekill}", $string);
 
         return $string;
     }
