@@ -52,8 +52,8 @@ class PureChat extends PluginBase
 
     public function onLoad()
     {
-			$this->log ( TextFormat::GREEN . "- Version PureChat Edited" );
-			$this->log ( TextFormat::GREEN . "- By Praxthisnovcht" );
+			$this->getLogger()->info ( TextFormat::GREEN . "- Version PureChat Edited" );
+			$this->getLogger()->info ( TextFormat::GREEN . "- By Praxthisnovcht" );
         $this->saveDefaultConfig();
 
         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
@@ -78,7 +78,7 @@ class PureChat extends PluginBase
 		
 		if(!$this->getServer()->getPluginManager()->getPlugin("PureKill") == false) {
 			$PureKill = Server::getInstance()->getPluginManager()->getPlugin("PureKill");
-			$this->log ( TextFormat::GREEN . "- PureChat - Loaded With PureKill !" );
+			$this->getLogger()->info ( TextFormat::GREEN . "- PureChat - Loaded With PureKill !" );
 		}
     }
 
