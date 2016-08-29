@@ -18,7 +18,7 @@ THE PRIVATE UPDATE
 */
 //use PraxCr7Prince\TurfWars;
 
-class KillChat extends PluginBase implements Listener{
+class PureKill extends PluginBase implements Listener{
 	
 	public $data;
 	
