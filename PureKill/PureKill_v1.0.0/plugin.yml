@@ -3,5 +3,5 @@ version: 1.0.1
 api: 1.0.0
 main: Praxthisnovcht\PureKill\PureKill
 author: [Flavius12,Praxthisnovcht]
-depend: [PureKill]
+depend: [PureChat]
 description: Adds Counter Kill for PureChat
