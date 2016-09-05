@@ -32,7 +32,7 @@ class EasyHouse extends PluginBase implements Listener {
 
 	
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){	
-         if($player->hasPermission("signstats.commands.stats")){	
+         if($player->hasPermission("easyhouse.commands.sethouse")){	
 		     switch($command->getName()){			
 			     case 'sethouse':
 				     $this->config->player[$sender->getName()]['house']['x'] = $sender->x;
